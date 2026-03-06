@@ -30,8 +30,6 @@
 }
 
 /* ── Brand Column ── */
-.footer-brand {}
-
 .footer-logo {
     display: flex;
     align-items: center;
@@ -371,4 +369,33 @@
         align-items: flex-start;
         gap: 10px;
     }
+}
+
+/* ── Light Mode Overrides ── */
+html[data-theme="light"] .footer {
+    background: var(--bg-surface);
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+html[data-theme="light"] .footer-rating {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.07);
+}
+
+html[data-theme="light"] .social-btn {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .fn-form input {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.09);
+}
+
+html[data-theme="light"] .footer-bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+html[data-theme="light"] .fb-link:hover {
+    background: rgba(0, 0, 0, 0.05);
 }

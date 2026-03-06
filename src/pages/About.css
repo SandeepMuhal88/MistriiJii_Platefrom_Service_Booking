@@ -349,4 +349,23 @@
     .team-grid {
         grid-template-columns: 1fr;
     }
+
+    .about-cta h2 {
+        font-size: clamp(1.4rem, 6vw, 1.9rem);
+    }
+}
+
+/* ── Light Mode ── */
+html[data-theme="light"] .story-stat-card,
+html[data-theme="light"] .value-card,
+html[data-theme="light"] .wwd-card,
+html[data-theme="light"] .mission-card,
+html[data-theme="light"] .team-card {
+    background: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .about-cta {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.05), rgba(6, 182, 212, 0.03));
+    border-color: rgba(249, 115, 22, 0.18);
 }

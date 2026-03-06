@@ -194,3 +194,45 @@
     min-width: 160px;
     justify-content: center;
 }
+
+/* Mobile */
+@media (max-width: 480px) {
+    .confirmation-page {
+        padding: 90px 16px 48px;
+    }
+
+    .conf-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .conf-actions .btn {
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+/* ── Light Mode ── */
+html[data-theme="light"] .confirmation-page {
+    background: var(--bg-base);
+}
+
+html[data-theme="light"] .conf-card {
+    background: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+html[data-theme="light"] .conf-summary {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.07);
+}
+
+html[data-theme="light"] .cs-row {
+    border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+html[data-theme="light"] .conf-next-step {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.06);
+}

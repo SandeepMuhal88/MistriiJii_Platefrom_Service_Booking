@@ -149,6 +149,7 @@
     outline: none;
     width: 100%;
     -webkit-appearance: none;
+    appearance: none;
 }
 
 .field-group input::placeholder,
@@ -426,4 +427,65 @@
     .stepper-line {
         margin: 0 4px;
     }
+
+    .form-nav {
+        flex-direction: column-reverse;
+    }
+
+    .form-nav .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ── Light Mode ── */
+html[data-theme="light"] .stepper {
+    background: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .stepper-line {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .stepper-circle {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] .booking-form-card {
+    background: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .field-group input,
+html[data-theme="light"] .field-group select,
+html[data-theme="light"] .field-group textarea {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
+}
+
+html[data-theme="light"] .input-prefix-wrap {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] .input-prefix-wrap .prefix {
+    background: rgba(0, 0, 0, 0.04);
+    border-right-color: rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] .time-slot-btn {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.09);
+}
+
+html[data-theme="light"] .sidebar-trust-card {
+    background: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .form-nav {
+    border-top-color: rgba(0, 0, 0, 0.07);
 }

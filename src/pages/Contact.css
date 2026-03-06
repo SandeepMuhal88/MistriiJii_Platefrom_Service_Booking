@@ -252,4 +252,36 @@
     .cf-row {
         grid-template-columns: 1fr;
     }
+
+    .cf-submit {
+        font-size: 0.9rem;
+    }
+}
+
+/* ── Light Mode ── */
+html[data-theme="light"] .ci-card {
+    background: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .faq-card {
+    background: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .faq-item {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+html[data-theme="light"] .contact-form-card {
+    background: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .cf-group input,
+html[data-theme="light"] .cf-group textarea {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
 }

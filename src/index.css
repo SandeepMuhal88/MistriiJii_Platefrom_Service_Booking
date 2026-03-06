@@ -98,6 +98,41 @@
 }
 
 /* ══════════════════════════════════════
+   LIGHT MODE TOKEN OVERRIDES
+   Applied via data-theme="light" on <html>
+   ══════════════════════════════════════ */
+html[data-theme="light"] {
+  /* Backgrounds */
+  --bg-base: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F1F5F9;
+  --bg-overlay: #E2E8F0;
+  --bg-hover: #E9EEF6;
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.80);
+  --glass-bg-light: rgba(0, 0, 0, 0.03);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border-h: rgba(0, 0, 0, 0.16);
+
+  /* Text */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --text-disabled: #CBD5E1;
+
+  /* Gradients */
+  --grad-card: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(241, 245, 249, 0.98));
+  --grad-separator: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.25), transparent);
+
+  /* Shadows (softer for light) */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+/* ══════════════════════════════════════
    RESET & BASE
    ══════════════════════════════════════ */
 *,
@@ -911,5 +946,203 @@ select {
 @media (min-width: 769px) {
   .hide-desktop {
     display: none !important;
+  }
+}
+
+/* ══════════════════════════════════════
+   LIGHT MODE — COMPONENT OVERRIDES
+   ══════════════════════════════════════ */
+html[data-theme="light"] body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: var(--brand-orange-d);
+}
+
+html[data-theme="light"] .page-hero {
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(249, 115, 22, 0.06) 0%, transparent 65%);
+}
+
+html[data-theme="light"] .page-hero::before {
+  background: linear-gradient(180deg, transparent 60%, var(--bg-base));
+}
+
+html[data-theme="light"] .chip {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .btn-outline {
+  border-color: rgba(0, 0, 0, 0.14);
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] .glass,
+html[data-theme="light"] .glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE — FULL BREAKPOINT SYSTEM
+   Mobile  : ≤ 480px
+   Tablet  : 481px – 768px
+   Laptop  : 769px – 1024px
+   Desktop : ≥ 1025px
+   ══════════════════════════════════════ */
+
+/* ── Tablet (≤ 1024px) ── */
+@media (max-width: 1024px) {
+  :root {
+    --section-py: clamp(48px, 7vw, 88px);
+    --container: 960px;
+  }
+
+  .container {
+    padding-inline: clamp(20px, 3vw, 28px);
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  }
+}
+
+/* ── Small Tablet / Large Mobile (≤ 768px) ── */
+@media (max-width: 768px) {
+  :root {
+    --section-py: 56px;
+  }
+
+  html {
+    font-size: 15px;
+  }
+
+  .container {
+    padding-inline: 18px;
+  }
+
+  .section {
+    padding-block: 56px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 7vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+  }
+
+  .section-header p {
+    font-size: 0.95rem;
+  }
+
+  /* Button sizes on mobile */
+  .btn-xl {
+    padding: 14px 28px;
+    font-size: 0.95rem;
+  }
+
+  .btn-lg {
+    padding: 13px 28px;
+    font-size: 0.95rem;
+  }
+
+  /* Grid collapses */
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Page hero padding */
+  .page-hero {
+    padding-top: 100px;
+    padding-bottom: 48px;
+  }
+
+  .page-hero-inner {
+    gap: 12px;
+  }
+
+  .page-hero-inner p {
+    font-size: 0.95rem;
+  }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  :root {
+    --section-py: 44px;
+  }
+
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    padding-inline: 16px;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 6vw, 1.9rem);
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  .section {
+    padding-block: 44px;
+  }
+
+  .section-header {
+    margin-bottom: 32px;
+  }
+
+  .section-header p {
+    font-size: 0.9rem;
+    max-width: 100%;
+  }
+
+  .btn {
+    padding: 12px 22px;
+    font-size: 0.875rem;
+  }
+
+  .btn-xl {
+    padding: 13px 24px;
+    font-size: 0.9rem;
+  }
+
+  .btn-lg {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  /* Separator gradient thinner on mobile */
+  .divider {
+    height: 1px;
+  }
+
+  /* Badge smaller */
+  .badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
   }
 }
