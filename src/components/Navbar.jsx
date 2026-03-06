@@ -2,52 +2,53 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
+const navLinks = [
+    { to: '/', label: 'Home' },
+    { to: '/services', label: 'Services' },
+    { to: '/about', label: 'About' },
+    { to: '/contact', label: 'Contact' },
+];
+
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        const onScroll = () => setScrolled(window.scrollY > 24);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
-    useEffect(() => {
-        setMenuOpen(false);
-    }, [location]);
+    useEffect(() => { setMenuOpen(false); }, [location]);
 
-    const navLinks = [
-        { to: '/', label: 'Home' },
-        { to: '/services', label: 'Services' },
-        { to: '/about', label: 'About' },
-        { to: '/contact', label: 'Contact' },
-    ];
+    // Lock body scroll when mobile menu open
+    useEffect(() => {
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [menuOpen]);
 
     return (
         <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="container navbar-inner">
-                {/* Logo */}
-                <Link to="/" className="navbar-logo">
-                    <div className="logo-icon">
-                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                            <path d="M14 2L3 9V26H11V18H17V26H25V9L14 2Z" fill="url(#logoGrad)" />
-                            <circle cx="14" cy="13" r="3" fill="white" opacity="0.9" />
-                            <defs>
-                                <linearGradient id="logoGrad" x1="3" y1="2" x2="25" y2="26" gradientUnits="userSpaceOnUse">
-                                    <stop stopColor="#cf4817ff" />
-                                    <stop offset="1" stopColor="#b04c16ff" />
-                                </linearGradient>
-                            </defs>
+
+                {/* ── Logo ── */}
+                <Link to="/" className="navbar-logo" aria-label="MistriJii Home">
+                    <div className="logo-mark">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 9.5L12 3L21 9.5V20C21 20.55 20.55 21 20 21H15V15H9V21H4C3.45 21 3 20.55 3 20V9.5Z"
+                                fill="white" opacity="0.95" />
+                            <circle cx="12" cy="11" r="2.5" fill="rgba(0,0,0,0.3)" />
                         </svg>
                     </div>
-                    <span className="logo-text">
-                        <span>Mistri</span>Ji
-                    </span>
+                    <div className="logo-wordmark">
+                        <span className="logo-name">Mistri<span>Jii</span></span>
+                        <span className="logo-tagline">Service on Demand</span>
+                    </div>
                 </Link>
 
-                {/* Desktop Nav */}
-                <nav className="navbar-links">
+                {/* ── Desktop Nav ── */}
+                <nav className="navbar-links" aria-label="Main navigation">
                     {navLinks.map(link => (
                         <Link
                             key={link.to}
@@ -59,40 +60,48 @@ const Navbar = () => {
                     ))}
                 </nav>
 
-                {/* CTA */}
-                <div className="navbar-cta">
-                    <Link to="/booking" className="btn btn-primary">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.13 6.13l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                        </svg>
+                {/* ── Right CTA ── */}
+                <div className="navbar-right">
+                    <a href="tel:+919511582964" className="nav-phone hide-mobile">
+                        <span className="dot" />
+                        +91 95115 82964
+                    </a>
+                    <Link to="/booking" className="btn btn-primary hide-mobile">
                         Book Now
                     </Link>
-
-                    {/* Hamburger */}
                     <button
+                        id="hamburger-btn"
                         className={`hamburger ${menuOpen ? 'open' : ''}`}
-                        onClick={() => setMenuOpen(!menuOpen)}
-                        aria-label="Toggle menu"
+                        onClick={() => setMenuOpen(v => !v)}
+                        aria-label="Toggle navigation menu"
+                        aria-expanded={menuOpen}
                     >
-                        <span></span><span></span><span></span>
+                        <span /><span /><span />
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu */}
-            <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
-                {navLinks.map(link => (
-                    <Link
-                        key={link.to}
-                        to={link.to}
-                        className={`mobile-link ${location.pathname === link.to ? 'active' : ''}`}
-                    >
-                        {link.label}
+            {/* ── Mobile Menu ── */}
+            <div className={`mobile-menu ${menuOpen ? 'open' : ''}`} role="navigation" aria-label="Mobile navigation">
+                <div className="mobile-menu-links">
+                    {navLinks.map(link => (
+                        <Link
+                            key={link.to}
+                            to={link.to}
+                            className={`mobile-link ${location.pathname === link.to ? 'active' : ''}`}
+                        >
+                            {link.label}
+                        </Link>
+                    ))}
+                </div>
+                <div className="mobile-menu-footer">
+                    <Link to="/booking" className="btn btn-primary mobile-book-btn">
+                        📅 Book a Service
                     </Link>
-                ))}
-                <Link to="/booking" className="btn btn-primary mobile-book-btn">
-                    📞 Book a Service
-                </Link>
+                    <a href="tel:+919511582964" className="mobile-call-link">
+                        📞 Call: +91 95115 82964
+                    </a>
+                </div>
             </div>
         </header>
     );

@@ -8,238 +8,183 @@ const categories = [
     { id: 'ac', label: 'AC & HVAC', icon: '❄️' },
     { id: 'mechanic', label: 'Mechanic', icon: '🔧' },
     { id: 'vehicle', label: 'Vehicle', icon: '🚗' },
-    { id: 'other', label: 'Other', icon: '🔩' },
+    { id: 'other', label: 'More Services', icon: '🔩' },
 ];
 
 const allServices = [
-    /* Electrical */
     {
-        id: 1, category: 'electric',
-        icon: '⚡', title: 'Electrician',
-        desc: 'Wiring, short circuit repair, switchboard replacement, fan/light installation. Har electrical kaam ke liye expert milistry.',
-        price: '₹199 se shuru',
-        rating: 4.9, reviews: 2840,
-        time: '30-60 min',
+        id: 1, category: 'electric', icon: '⚡', title: 'Electrician',
+        desc: 'Wiring, short circuit repair, switchboard replacement, fan & light installation. Certified electricians for all electrical work.',
+        price: '₹199', time: '30–60 min', rating: 4.9, reviews: 2840, color: '#F59E0B',
         features: ['Wiring & Rewiring', 'Switch/Plug Repair', 'Light Installation', 'Fan Fitting', 'MCB/Fuse Repair'],
-        color: '#FACC15',
     },
     {
-        id: 2, category: 'electric',
-        icon: '🔌', title: 'Inverter & Battery',
-        desc: 'Inverter installation, battery check, UPS repair aur maintenance service apke ghar par.',
-        price: '₹299 se shuru',
-        rating: 4.8, reviews: 1200,
-        time: '45-90 min',
+        id: 2, category: 'electric', icon: '🔌', title: 'Inverter & Battery',
+        desc: 'Inverter installation, battery check, UPS repair and maintenance at your home.',
+        price: '₹299', time: '45–90 min', rating: 4.8, reviews: 1200, color: '#F59E0B',
         features: ['Battery Checkup', 'Inverter Repair', 'UPS Setup', 'Wiring Connection'],
-        color: '#F59E0B',
     },
-    /* AC */
     {
-        id: 3, category: 'ac',
-        icon: '❄️', title: 'AC Service & Repair',
-        desc: 'AC deep cleaning, gas refill, PCB repair, compressor check — sab ek jagah milega.',
-        price: '₹499 se shuru',
-        rating: 4.9, reviews: 4150,
-        time: '1-2 ghante',
+        id: 3, category: 'ac', icon: '❄️', title: 'AC Service & Repair',
+        desc: 'AC deep cleaning, gas refill, PCB repair, compressor check — all managed by certified AC technicians.',
+        price: '₹499', time: '1–2 hours', rating: 4.9, reviews: 4150, color: '#06B6D4',
         features: ['Deep Cleaning', 'Gas Refill', 'PCB Repair', 'Cooling Check', 'Installation'],
-        color: '#00D4FF',
     },
     {
-        id: 4, category: 'ac',
-        icon: '🌡️', title: 'AC Installation',
-        desc: 'Naya AC install karwao — split ya window, sab types ka professional installation.',
-        price: '₹699 se shuru',
-        rating: 4.8, reviews: 980,
-        time: '2-3 ghante',
+        id: 4, category: 'ac', icon: '🌡️', title: 'AC Installation',
+        desc: 'New AC installation — split or window type, all brands handled professionally.',
+        price: '₹699', time: '2–3 hours', rating: 4.8, reviews: 980, color: '#06B6D4',
         features: ['Wall Mounting', 'Pipe Fitting', 'Gas Charging', 'Test Run', 'Demo'],
-        color: '#38BDF8',
     },
-    /* Mechanic */
     {
-        id: 5, category: 'mechanic',
-        icon: '🔧', title: 'General Mechanic',
-        desc: 'Motor, pump, machine — koi bhi mechanical kaam ke liye expert mistri.',
-        price: '₹299 se shuru',
-        rating: 4.7, reviews: 1670,
-        time: '1-2 ghante',
+        id: 5, category: 'mechanic', icon: '🔧', title: 'General Mechanic',
+        desc: 'Motor, pump, machine — any mechanical problem solved by our experienced technicians.',
+        price: '₹299', time: '1–2 hours', rating: 4.7, reviews: 1670, color: '#A78BFA',
         features: ['Motor Repair', 'Pump Servicing', 'Belt & Pulley', 'Machine Maintenance'],
-        color: '#A78BFA',
     },
     {
-        id: 6, category: 'mechanic',
-        icon: '🚿', title: 'Plumber',
-        desc: 'Pipe repair, tap replacement, geyser installation, bathroom fitting aur drain cleaning.',
-        price: '₹199 se shuru',
-        rating: 4.8, reviews: 3200,
-        time: '30-90 min',
+        id: 6, category: 'mechanic', icon: '🚿', title: 'Plumber',
+        desc: 'Pipe repair, tap replacement, geyser installation, bathroom fitting and drain cleaning.',
+        price: '₹199', time: '30–90 min', rating: 4.8, reviews: 3200, color: '#60A5FA',
         features: ['Pipe Repair', 'Tap Fitting', 'Geyser Install', 'Drain Clean', 'Leakage Fix'],
-        color: '#60A5FA',
     },
-    /* Vehicle */
     {
-        id: 7, category: 'vehicle',
-        icon: '🚗', title: 'Car Service',
-        desc: 'Doorstep car service — oil change, tyre rotation, brake check, AC recharge aur full checkup.',
-        price: '₹799 se shuru',
-        rating: 4.8, reviews: 2100,
-        time: '2-3 ghante',
+        id: 7, category: 'vehicle', icon: '🚗', title: 'Car Service',
+        desc: 'Doorstep car service — oil change, tyre rotation, brake check, AC recharge and full checkup.',
+        price: '₹799', time: '2–3 hours', rating: 4.8, reviews: 2100, color: '#10B981',
         features: ['Oil Change', 'Tyre Check', 'Brake Repair', 'Car AC Service', 'Full Checkup'],
-        color: '#34D399',
     },
     {
-        id: 8, category: 'vehicle',
-        icon: '🏍️', title: 'Bike Service',
-        desc: 'Bike ka full service — chain lube, oil change, brake checkup, tyre pressure — sabkuch apke ghar pe.',
-        price: '₹399 se shuru',
-        rating: 4.9, reviews: 1890,
-        time: '1-2 ghante',
+        id: 8, category: 'vehicle', icon: '🏍️', title: 'Bike Service',
+        desc: 'Full bike service — chain lube, oil change, brake checkup and tyre pressure at your home.',
+        price: '₹399', time: '1–2 hours', rating: 4.9, reviews: 1890, color: '#34D399',
         features: ['Engine Oil', 'Chain Lubrication', 'Brake Check', 'Tyre Pressure', 'Wash & Polish'],
-        color: '#F472B6',
     },
-    /* Other */
     {
-        id: 9, category: 'other',
-        icon: '🎨', title: 'Painter',
-        desc: 'Wall painting, POP work, texture design — professional painters at affordable price.',
-        price: '₹599 se shuru',
-        rating: 4.7, reviews: 870,
-        time: 'Per day basis',
+        id: 9, category: 'other', icon: '🎨', title: 'Painter',
+        desc: 'Wall painting, POP work, texture design — professional painters at affordable rates.',
+        price: '₹599', time: 'Per day basis', rating: 4.7, reviews: 870, color: '#FB923C',
         features: ['Interior Painting', 'Exterior Painting', 'POP Work', 'Texture Design', 'Waterproofing'],
-        color: '#FB923C',
     },
     {
-        id: 11, category: 'Solar installation',
-        icon: '☀️', title: 'Solar Installation',
-        desc: 'Solar panel installation, battery setup, system maintenance — professional solar installation at affordable price.',
-        price: 'AS Required',
-        rating: 4.7, reviews: 870,
-        time: 'Per day basis',
-        features: ['Solar Panel Installation', 'Battery Setup', 'System Maintenance', 'Solar Panel Installation', 'Solar Panel Installation'],
-        color: '#FB923C',
-
-    },
-    {
-        id: 10, category: 'other',
-        icon: '📺', title: 'TV / Appliance Repair',
-        desc: 'LED TV, washing machine, refrigerator — sab ka repair apke ghar pe.',
-        price: '₹249 se shuru',
-        rating: 4.8, reviews: 1450,
-        time: '1-2 ghante',
+        id: 10, category: 'other', icon: '📺', title: 'Appliance Repair',
+        desc: 'LED TV, washing machine, refrigerator — all appliance repairs at your home.',
+        price: '₹249', time: '1–2 hours', rating: 4.8, reviews: 1450, color: '#818CF8',
         features: ['LED TV Repair', 'Washing Machine', 'Refrigerator', 'Microwave', 'Geyser'],
-        color: '#818CF8',
-    }
-
+    },
+    {
+        id: 11, category: 'other', icon: '☀️', title: 'Solar Installation',
+        desc: 'Solar panel installation, battery setup, system maintenance by certified solar engineers.',
+        price: 'As Required', time: 'Per day basis', rating: 4.7, reviews: 320, color: '#FACC15',
+        features: ['Panel Installation', 'Battery Setup', 'System Maintenance', 'Net Metering', 'Monitoring'],
+    },
 ];
 
 const Services = () => {
-    const [activeCategory, setActiveCategory] = useState('all');
-    const [selectedService, setSelectedService] = useState(null);
+    const [active, setActive] = useState('all');
 
-    const filtered = activeCategory === 'all'
-        ? allServices
-        : allServices.filter(s => s.category === activeCategory);
+    const filtered = active === 'all' ? allServices : allServices.filter(s => s.category === active);
 
     return (
-        <main className="services-page">
-            {/* Page Hero */}
+        <main>
+            {/* ── Page Hero ── */}
             <section className="page-hero">
                 <div className="page-hero-blob blob-a" />
                 <div className="page-hero-blob blob-b" />
                 <div className="container page-hero-inner">
                     <span className="badge">🛠️ All Services</span>
-                    <h1>Hamare <span className="gradient-text">Services</span></h1>
-                    <p>Professional, verified aur affordable home services — sab ek platform pe.</p>
+                    <h1>Our <span className="gradient-text">Services</span></h1>
+                    <p>Professional, verified and affordable home services — all on one platform.</p>
                 </div>
             </section>
 
-            {/* Category Filter */}
-            <section className="filter-section">
+            {/* ── Category Filter ── */}
+            <div className="filter-bar">
                 <div className="container">
-                    <div className="category-tabs">
+                    <div className="category-tabs" role="tablist" aria-label="Service categories">
                         {categories.map(cat => (
                             <button
                                 key={cat.id}
-                                className={`category-tab ${activeCategory === cat.id ? 'active' : ''}`}
-                                onClick={() => setActiveCategory(cat.id)}
+                                id={`tab-${cat.id}`}
+                                role="tab"
+                                aria-selected={active === cat.id}
+                                className={`cat-tab ${active === cat.id ? 'active' : ''}`}
+                                onClick={() => setActive(cat.id)}
                             >
-                                <span>{cat.icon}</span>
-                                <span>{cat.label}</span>
+                                <span className="tab-icon">{cat.icon}</span>
+                                {cat.label}
                             </button>
                         ))}
                     </div>
                 </div>
-            </section>
+            </div>
 
-            {/* Services Grid */}
-            <section className="services-list section">
+            {/* ── Services Grid ── */}
+            <section className="section">
                 <div className="container">
-                    <div className="svc-count">
-                        <span className="gradient-text">{filtered.length}</span> services found
+                    <div className="results-row">
+                        <p className="results-count">
+                            Showing <strong>{filtered.length}</strong> services
+                            {active !== 'all' && ` in ${categories.find(c => c.id === active)?.label}`}
+                        </p>
                     </div>
+
                     <div className="svc-grid">
                         {filtered.map(svc => (
-                            <div
+                            <article
                                 key={svc.id}
-                                className="svc-card glass-card"
-                                style={{ '--svc-color': svc.color }}
+                                className="svc-card"
+                                aria-label={svc.title}
                             >
-                                {/* Card Top */}
-                                <div className="svc-card-top">
-                                    <div className="svc-icon-wrap" style={{ background: `${svc.color}15`, border: `1px solid ${svc.color}25` }}>
-                                        <span className="svc-icon">{svc.icon}</span>
+                                <div className="svc-card-head">
+                                    <div className="svc-icon-box" style={{ background: `${svc.color}12`, border: `1px solid ${svc.color}22` }}>
+                                        <span>{svc.icon}</span>
                                     </div>
-                                    <div className="svc-meta">
-                                        <span className="svc-rating">⭐ {svc.rating}</span>
-                                        <span className="svc-reviews">({svc.reviews} reviews)</span>
+                                    <div className="svc-rating-wrap">
+                                        <div className="svc-rating-stars">
+                                            {[1, 2, 3, 4, 5].map(n => <span key={n}>⭐</span>)}
+                                        </div>
+                                        <div className="svc-rating-val">{svc.rating} <span style={{ fontWeight: 400, color: 'var(--text-muted)', fontSize: '0.75rem' }}>({svc.reviews.toLocaleString()})</span></div>
                                     </div>
                                 </div>
 
-                                {/* Title & Desc */}
                                 <h3 className="svc-title">{svc.title}</h3>
                                 <p className="svc-desc">{svc.desc}</p>
 
-                                {/* Features */}
-                                <div className="svc-features">
+                                <div className="svc-features-wrap">
                                     {svc.features.slice(0, 3).map(f => (
-                                        <span key={f} className="svc-feature-chip">✓ {f}</span>
+                                        <span key={f} className="svc-feat-chip">✓ {f}</span>
                                     ))}
                                     {svc.features.length > 3 && (
-                                        <span className="svc-feature-more">+{svc.features.length - 3} more</span>
+                                        <span className="svc-feat-more">+{svc.features.length - 3} more</span>
                                     )}
                                 </div>
 
-                                {/* Footer */}
-                                <div className="svc-card-footer">
-                                    <div className="svc-info">
-                                        <div className="svc-price" style={{ color: svc.color }}>{svc.price}</div>
+                                <div className="svc-card-foot">
+                                    <div className="svc-meta-info">
+                                        <div className="svc-price" style={{ color: svc.color }}>From {svc.price}</div>
                                         <div className="svc-time">⏱ {svc.time}</div>
                                     </div>
                                     <Link
                                         to={`/booking?service=${encodeURIComponent(svc.title)}`}
-                                        className="btn btn-primary svc-book-btn"
-                                        style={{ background: `linear-gradient(135deg, ${svc.color}dd, ${svc.color}aa)` }}
+                                        className="svc-book-btn"
+                                        id={`book-${svc.id}`}
+                                        style={{ background: `linear-gradient(135deg, ${svc.color}, ${svc.color}aa)` }}
                                     >
                                         Book Now
                                     </Link>
                                 </div>
-
-                                {/* Glow on hover */}
-                                <div className="svc-glow" style={{ background: `radial-gradient(circle at center, ${svc.color}08, transparent 70%)` }}></div>
-                            </div>
+                            </article>
                         ))}
                     </div>
-                </div>
-            </section>
 
-            {/* Bottom CTA */}
-            <section className="section">
-                <div className="container">
-                    <div className="services-cta glass-card">
-                        <h2>Apni Service Nahi Mili? 🤔</h2>
-                        <p>Ham almost har ghar ki zaroorat ka kख़याल rakhte hain. Abhi call karo ya book karo.</p>
-                        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '12px' }}>
-                            <a href="tel:+91 9511582964" className="btn btn-primary">📞 Call Us Now</a>
-                            <a href="https://wa.me/919511582964" target="_blank" rel="noreferrer" className="btn btn-outline">💬 WhatsApp</a>
+                    {/* Bottom CTA */}
+                    <div className="svc-page-cta" style={{ marginTop: '64px' }}>
+                        <h2>Didn't Find Your Service? 🤔</h2>
+                        <p>We cover almost every home need. Call us or chat on WhatsApp — we'll sort it out.</p>
+                        <div className="svc-cta-btns">
+                            <a href="tel:+919511582964" className="btn btn-primary">📞 Call Now</a>
+                            <a href="https://wa.me/919511582964" target="_blank" rel="noreferrer" className="btn btn-outline">💬 WhatsApp Us</a>
                         </div>
                     </div>
                 </div>

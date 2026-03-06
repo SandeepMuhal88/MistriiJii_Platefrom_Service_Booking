@@ -1,263 +1,196 @@
+/* ═══════════════════════════════
+   CONFIRMATION PAGE
+   ═══════════════════════════════ */
+
 .confirmation-page {
     min-height: 100vh;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    padding: 120px 24px 80px;
-    position: relative;
+    padding: 100px 24px 60px;
+    background: var(--bg-base);
 }
 
-/* Confetti */
-.confetti-container {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
+.conf-card {
+    background: var(--bg-elevated);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--r-3xl);
+    padding: clamp(40px, 5vw, 64px);
+    max-width: 640px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: scaleIn 0.6s ease;
+    position: relative;
     overflow: hidden;
 }
 
-.confetti-piece {
+.conf-card::before {
+    content: '';
     position: absolute;
-    top: -20px;
-    animation: fall linear forwards;
-    opacity: 0.8;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 200px;
+    background: radial-gradient(ellipse, rgba(16, 185, 129, 0.12), transparent 70%);
+    pointer-events: none;
 }
 
-@keyframes fall {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(110vh) rotate(720deg);
-        opacity: 0;
-    }
-}
-
-/* Card */
-.confirmation-card {
-    max-width: 680px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 48px 40px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    position: relative;
-    z-index: 1;
-    animation: fadeInUp 0.6s ease both;
-}
-
-/* Success Icon */
-.success-icon-wrap {
-    position: relative;
-}
-
-.success-ring-outer {
-    width: 100px;
-    height: 100px;
+.conf-success-icon {
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background: rgba(16, 185, 129, 0.1);
+    border: 2px solid rgba(16, 185, 129, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: pulse-glow 2s ease-in-out infinite;
-    box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
-}
-
-.success-ring-inner {
-    width: 76px;
-    height: 76px;
-    border-radius: 50%;
-    background: rgba(16, 185, 129, 0.2);
-    border: 2px solid rgba(16, 185, 129, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.success-checkmark {
-    font-size: 2rem;
-    color: #10b981;
-    font-weight: 900;
-}
-
-.confirm-title {
     font-size: 2.2rem;
-    font-weight: 900;
+    margin: 0 auto 24px;
+    animation: scaleIn 0.5s ease 0.2s both;
+    position: relative;
+    z-index: 1;
 }
 
-.confirm-subtitle {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    max-width: 500px;
+.conf-card h1 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
 }
 
-/* Booking ID */
-.booking-id-chip {
-    display: flex;
+.conf-card>p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 36px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Booking ID badge */
+.conf-booking-id {
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
-    background: rgba(255, 107, 53, 0.08);
-    border: 1px solid rgba(255, 107, 53, 0.25);
-    border-radius: var(--radius-full);
-    font-size: 0.9rem;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.25);
+    border-radius: var(--r-full);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--brand-orange);
+    margin-bottom: 32px;
+    letter-spacing: 0.05em;
 }
 
-.booking-id-chip strong {
-    font-size: 1.05rem;
-    font-weight: 800;
-}
-
-/* Details */
-.confirm-details {
-    width: 100%;
+/* Summary Box */
+.conf-summary {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--r-2xl);
     padding: 24px;
+    margin-bottom: 28px;
     text-align: left;
-    background: rgba(255, 255, 255, 0.03) !important;
 }
 
-.confirm-details h3 {
-    font-size: 1.05rem;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border-glass);
+.cs-heading {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 18px;
 }
 
-.confirm-grid {
+.cs-rows {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.confirm-row {
+.cs-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     gap: 16px;
-    font-size: 0.875rem;
+    font-size: 0.87rem;
 }
 
-.confirm-label {
+.cs-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.cs-row-key {
     color: var(--text-muted);
-    white-space: nowrap;
-    flex-shrink: 0;
 }
 
-.confirm-value {
-    font-weight: 600;
+.cs-row-val {
     color: var(--text-primary);
+    font-weight: 600;
     text-align: right;
 }
 
-/* What's Next */
-.whats-next {
-    width: 100%;
-    text-align: left;
-}
-
-.whats-next h3 {
-    font-size: 1.05rem;
-    margin-bottom: 16px;
-}
-
-.next-steps {
+/* What happens next */
+.conf-next-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    text-align: left;
 }
 
-.next-step {
+.conf-next-step {
     display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 16px;
-    background: var(--bg-glass-light);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-glass);
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--r-lg);
+    font-size: 0.85rem;
 }
 
-.next-num {
-    width: 32px;
-    height: 32px;
+.cns-num {
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    background: rgba(255, 107, 53, 0.15);
-    border: 1px solid rgba(255, 107, 53, 0.3);
-    color: var(--primary);
-    font-weight: 700;
-    font-size: 0.875rem;
+    background: var(--grad-brand);
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: white;
     flex-shrink: 0;
+    margin-top: 1px;
 }
 
-.next-step p {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-}
-
-.next-step p strong {
+.cns-text strong {
     color: var(--text-primary);
+    display: block;
+    margin-bottom: 2px;
+}
+
+.cns-text span {
+    color: var(--text-muted);
+    font-size: 0.8rem;
 }
 
 /* Actions */
-.confirm-actions {
+.conf-actions {
     display: flex;
-    gap: 16px;
-    width: 100%;
+    gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.confirm-actions .btn {
+.conf-actions .btn {
     min-width: 160px;
-}
-
-/* Help */
-.confirm-help {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-}
-
-.confirm-help p {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.confirm-phone {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--primary);
-    transition: var(--transition);
-}
-
-.confirm-phone:hover {
-    color: var(--primary-light);
-}
-
-@media (max-width: 640px) {
-    .confirmation-card {
-        padding: 32px 20px;
-    }
-
-    .confirm-title {
-        font-size: 1.6rem;
-    }
-
-    .confirm-row {
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .confirm-value {
-        text-align: left;
-    }
+    justify-content: center;
 }

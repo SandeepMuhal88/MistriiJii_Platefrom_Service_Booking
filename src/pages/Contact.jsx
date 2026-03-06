@@ -1,6 +1,20 @@
 import { useState } from 'react';
 import './Contact.css';
 
+const contactCards = [
+    { icon: '📞', title: 'Call Us', value: '+91 95115 82964', sub: 'Mon–Sun, 8 AM – 10 PM', href: 'tel:+919511582964' },
+    { icon: '💬', title: 'WhatsApp', value: '+91 95115 82964', sub: 'Instant replies guaranteed', href: 'https://wa.me/919511582964' },
+    { icon: '✉️', title: 'Email', value: 'support@mistrijii.in', sub: 'We reply within 24 hours', href: 'mailto:support@mistrijii.in' },
+    { icon: '📍', title: 'Office', value: 'Bikaner, Rajasthan, India', sub: 'By appointment only', href: '#' },
+];
+
+const faqs = [
+    'How long does it take for an expert to arrive?',
+    'What are the service charges?',
+    'Is there a warranty on the service done?',
+    'How do I cancel or reschedule a booking?',
+];
+
 const Contact = () => {
     const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
     const [submitted, setSubmitted] = useState(false);
@@ -17,45 +31,47 @@ const Contact = () => {
         setForm({ name: '', phone: '', email: '', message: '' });
     };
 
-    const contactInfo = [
-        { icon: '📞', title: 'Call Karo', detail: '+91 99999 99999', sub: 'Mon–Sun, 8 AM – 10 PM', href: 'tel:+919999999999' },
-        { icon: '💬', title: 'WhatsApp', detail: '+91 99999 99999', sub: 'Instant Reply', href: 'https://wa.me/919999999999' },
-        { icon: '✉️', title: 'Email Karo', detail: 'support@incall.in', sub: '24 hrs mein reply', href: 'mailto:support@incall.in' },
-        { icon: '📍', title: 'Office', detail: 'Delhi NCR, India', sub: 'By appointment only', href: '#' },
-    ];
-
     return (
-        <main className="contact-page">
-            {/* Page Hero */}
+        <main>
+            {/* ── Page Hero ── */}
             <section className="page-hero">
                 <div className="page-hero-blob blob-a" />
                 <div className="page-hero-blob blob-b" />
                 <div className="container page-hero-inner">
                     <span className="badge">📞 Contact</span>
-                    <h1>Humse <span className="gradient-text">Baat Karo</span></h1>
-                    <p>Koi bhi sawaal, complaint ya suggestion — hum sunne ke liye hamesha ready hain.</p>
+                    <h1>Get In <span className="gradient-text">Touch</span></h1>
+                    <p>Have a question, complaint, or suggestion? We're always here to help you.</p>
                 </div>
             </section>
 
-            <section className="section contact-section">
+            {/* ── Contact Layout ── */}
+            <section className="section">
                 <div className="container">
-                    <div className="contact-grid">
-                        {/* Contact Info */}
-                        <div className="contact-info-col">
-                            <h2 className="contact-heading">
-                                Contact <span className="gradient-text">Options</span>
+                    <div className="contact-layout">
+
+                        {/* ── Left: Info ── */}
+                        <div>
+                            <h2 className="contact-info-heading">
+                                How Can We <span className="gradient-text">Help?</span>
                             </h2>
-                            <p className="contact-subheading">
-                                Hamse kisi bhi tarike se milao — hum hamesha available hain.
+                            <p className="contact-info-sub">
+                                Reach us through any of these channels — we aim to respond as fast as possible.
                             </p>
 
-                            <div className="contact-cards">
-                                {contactInfo.map((c, i) => (
-                                    <a key={i} href={c.href} className="contact-info-card glass-card" target={c.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
-                                        <div className="ci-icon">{c.icon}</div>
-                                        <div className="ci-text">
+                            <div className="contact-info-cards">
+                                {contactCards.map((c, i) => (
+                                    <a
+                                        key={i}
+                                        href={c.href}
+                                        className="ci-card"
+                                        target={c.href.startsWith('http') ? '_blank' : undefined}
+                                        rel="noreferrer"
+                                        id={`contact-card-${i}`}
+                                    >
+                                        <div className="ci-icon-wrap">{c.icon}</div>
+                                        <div className="ci-body">
                                             <div className="ci-title">{c.title}</div>
-                                            <div className="ci-detail">{c.detail}</div>
+                                            <div className="ci-value">{c.value}</div>
                                             <div className="ci-sub">{c.sub}</div>
                                         </div>
                                         <div className="ci-arrow">→</div>
@@ -64,62 +80,92 @@ const Contact = () => {
                             </div>
 
                             {/* FAQ teaser */}
-                            <div className="faq-teaser glass-card">
-                                <div className="faq-icon">❓</div>
-                                <div>
-                                    <h4>Jo Sawaal Sabse Zyada Poochhe Jaate Hain</h4>
-                                    <ul className="faq-list">
-                                        <li>🔹 Kitne time mein expert aata hai?</li>
-                                        <li>🔹 Charges kya hain?</li>
-                                        <li>🔹 Kya warranty milti hai?</li>
-                                        <li>🔹 Service cancel karein toh?</li>
-                                    </ul>
+                            <div className="faq-card">
+                                <h4>🙋 Frequently Asked Questions</h4>
+                                <div className="faq-list">
+                                    {faqs.map((q, i) => (
+                                        <div key={i} className="faq-item">
+                                            <span className="faq-item-dot" />
+                                            {q}
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
 
-                        {/* Contact Form */}
-                        <div className="contact-form-col">
-                            <div className="contact-form-card glass-card">
+                        {/* ── Right: Form ── */}
+                        <div>
+                            <div className="contact-form-card">
                                 {!submitted ? (
                                     <>
-                                        <h3 className="form-card-title">📝 Message Bhejo</h3>
-                                        <p className="form-card-sub">Hum 2 ghante ke andar reply karenge.</p>
+                                        <h3 className="form-card-title">📝 Send a Message</h3>
+                                        <p className="form-card-sub">We'll get back to you within 2 hours.</p>
 
-                                        <form onSubmit={handleSubmit} className="contact-form">
+                                        <form className="contact-form" onSubmit={handleSubmit} id="contact-form">
                                             <div className="cf-group">
-                                                <label>Aapka Naam *</label>
-                                                <input type="text" name="name" required placeholder="Full name" value={form.name} onChange={handleChange} />
+                                                <label htmlFor="cf-name">Full Name *</label>
+                                                <input
+                                                    id="cf-name"
+                                                    type="text" name="name" required
+                                                    placeholder="Your full name"
+                                                    value={form.name} onChange={handleChange}
+                                                />
                                             </div>
+
                                             <div className="cf-row">
                                                 <div className="cf-group">
-                                                    <label>Mobile *</label>
-                                                    <input type="tel" name="phone" required placeholder="9XXXXXXXXX" value={form.phone} onChange={handleChange} />
+                                                    <label htmlFor="cf-phone">Mobile *</label>
+                                                    <input
+                                                        id="cf-phone"
+                                                        type="tel" name="phone" required
+                                                        placeholder="+91 9XXXXXXXXX"
+                                                        value={form.phone} onChange={handleChange}
+                                                    />
                                                 </div>
                                                 <div className="cf-group">
-                                                    <label>Email</label>
-                                                    <input type="email" name="email" placeholder="email@example.com" value={form.email} onChange={handleChange} />
+                                                    <label htmlFor="cf-email">Email</label>
+                                                    <input
+                                                        id="cf-email"
+                                                        type="email" name="email"
+                                                        placeholder="email@example.com"
+                                                        value={form.email} onChange={handleChange}
+                                                    />
                                                 </div>
                                             </div>
+
                                             <div className="cf-group">
-                                                <label>Aapka Message *</label>
-                                                <textarea name="message" rows={5} required placeholder="Apni baat likho yahan..." value={form.message} onChange={handleChange} />
+                                                <label htmlFor="cf-message">Your Message *</label>
+                                                <textarea
+                                                    id="cf-message"
+                                                    name="message" rows={5} required
+                                                    placeholder="Tell us what you need..."
+                                                    value={form.message} onChange={handleChange}
+                                                />
                                             </div>
-                                            <button type="submit" className="btn btn-primary cf-submit" disabled={sending}>
-                                                {sending ? '⏳ Sending...' : '🚀 Message Bhejo'}
+
+                                            <button
+                                                type="submit"
+                                                className="btn btn-primary cf-submit"
+                                                disabled={sending}
+                                                id="contact-submit-btn"
+                                            >
+                                                {sending ? '⏳ Sending...' : '🚀 Send Message'}
                                             </button>
                                         </form>
                                     </>
                                 ) : (
                                     <div className="cf-success">
                                         <div className="cf-success-icon">🎉</div>
-                                        <h3>Message Mil Gaya!</h3>
-                                        <p>Shukriya! Hum 2 ghante mein aapse contact karenge.</p>
-                                        <button className="btn btn-outline" onClick={() => setSubmitted(false)}>Dobara Bhejo</button>
+                                        <h3>Message Received!</h3>
+                                        <p>Thank you! We'll contact you within 2 hours.</p>
+                                        <button className="btn btn-outline" onClick={() => setSubmitted(false)}>
+                                            Send Another
+                                        </button>
                                     </div>
                                 )}
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>

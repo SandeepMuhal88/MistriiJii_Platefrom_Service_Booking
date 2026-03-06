@@ -2,209 +2,180 @@ import { Link } from 'react-router-dom';
 import './About.css';
 
 const whatWeDo = [
-    {
-        icon: '⚡',
-        title: 'Electrical Solutions',
-        desc: 'Short circuit se lekar full wiring tak — hamare certified electricians sab handle karte hain. Safe, fast aur reliable.',
-        color: '#FACC15',
-    },
-    {
-        icon: '❄️',
-        title: 'AC & Cooling Services',
-        desc: 'AC service, deep clean, gas refill, PCB repair, compressor replace — sabkuch ek phone par. Summers ka solution.',
-        color: '#00D4FF',
-    },
-    {
-        icon: '🔧',
-        title: 'Mechanic & Repair',
-        desc: 'Motor, pump, machine, pipe — mechanical kaam ke liye experienced mistri apke darwaaze par aate hain.',
-        color: '#A78BFA',
-    },
-    {
-        icon: '🚗',
-        title: 'Vehicle Services',
-        desc: 'Car aur bike doorstep service — oil change, brake check, tyre rotation — bina garage gaye.',
-        color: '#34D399',
-    },
-    {
-        icon: '🏠',
-        title: 'Home Maintenance',
-        desc: 'Plumbing, painting, carpentry, cleaning — ghar ka koi bhi kaam hame call karo.',
-        color: '#FB923C',
-    },
-    {
-        icon: '📺',
-        title: 'Appliance Repair',
-        desc: 'TV, washing machine, fridge, microwave — har appliance ki repair apke ghar par, genuine parts ke saath.',
-        color: '#818CF8',
-    },
+    { icon: '⚡', title: 'Electrical Solutions', desc: 'From short circuits to full rewiring — our certified electricians handle it all. Safe, fast, reliable.', color: '#F59E0B' },
+    { icon: '❄️', title: 'AC & Cooling Services', desc: 'AC service, deep clean, gas refill, PCB repair, compressor replacement — one call for all cooling needs.', color: '#06B6D4' },
+    { icon: '🔧', title: 'Mechanic & Repair', desc: 'Motor, pump, machine, pipe — expert mechanics come to your doorstep for any mechanical repair.', color: '#A78BFA' },
+    { icon: '🚗', title: 'Vehicle Services', desc: 'Car & bike doorstep service — oil change, brake check, tyre rotation — skip the garage entirely.', color: '#10B981' },
+    { icon: '🏠', title: 'Home Maintenance', desc: 'Plumbing, painting, carpentry, cleaning — any home task, just call us.', color: '#FB923C' },
+    { icon: '📺', title: 'Appliance Repair', desc: 'TV, washing machine, fridge, microwave — all appliance repairs at home with genuine parts.', color: '#818CF8' },
 ];
 
 const values = [
-    { icon: '🛡️', title: 'Fully Verified', desc: 'Har mistri ka police verification aur skill test hota hai.' },
-    { icon: '⚡', title: 'Lightning Fast', desc: '60 min mein expert apke ghar pe — guaranteed.' },
-    { icon: '💰', title: 'Fair Pricing', desc: 'Koi hidden charges nahi. Jo dikhayein wohi billing.' },
-    { icon: '⭐', title: 'Quality Work', desc: '30 din ki service warranty har kaam pe.' },
+    { icon: '🛡️', title: 'Fully Verified', desc: 'Every technician undergoes police verification and skill assessment before joining our platform.' },
+    { icon: '⚡', title: 'Lightning Fast', desc: 'Expert at your doorstep within 60 minutes of booking — guaranteed response time.' },
+    { icon: '💰', title: 'Fair Pricing', desc: 'Transparent billing — no hidden charges. You see the price, that\'s what you pay.' },
+    { icon: '⭐', title: 'Quality Warranty', desc: '30-day service warranty on every job. Not satisfied? We\'ll fix it for free.' },
 ];
 
 const team = [
-    { name: 'Sandeep Singh', role: 'Founder & CEO', emoji: '👨‍💼', color: '#FF6B35' },
-    { name: 'Priya Sharma', role: 'Operations Head', emoji: '👩‍💼', color: '#00D4FF' },
+    { name: 'Sandeep Singh', role: 'Founder & CEO', emoji: '👨‍💼', color: '#F97316' },
+    { name: 'Priya Sharma', role: 'Operations Head', emoji: '👩‍💼', color: '#06B6D4' },
     { name: 'Rahul Gupta', role: 'Tech Lead', emoji: '👨‍💻', color: '#A78BFA' },
-    { name: 'Anita Verma', role: 'Customer Success', emoji: '👩‍🎧', color: '#34D399' },
+    { name: 'Anita Verma', role: 'Customer Success', emoji: '👩‍🎧', color: '#10B981' },
 ];
 
-const About = () => {
-    return (
-        <main className="about-page">
-            {/* Page Hero */}
-            <section className="page-hero">
-                <div className="page-hero-blob blob-a" />
-                <div className="page-hero-blob blob-b" />
-                <div className="container page-hero-inner">
-                    <span className="badge">🏢 About MistriJi</span>
-                    <h1>Hamare <span className="gradient-text">Baare Mein</span></h1>
-                    <p>Ek aisa platform jo India ke ghar-ghar tak quality service pahunchata hai — quickly, safely, aur affordably.</p>
-                </div>
-            </section>
+const storyStats = [
+    { val: '2023', label: 'Founded' },
+    { val: '10K+', label: 'Happy Customers' },
+    { val: '500+', label: 'Expert Technicians' },
+    { val: '20+', label: 'Cities in India' },
+];
 
-            {/* Story Section */}
-            <section className="section story-section">
-                <div className="container story-grid">
-                    <div className="story-content">
-                        <span className="badge">📖 Our Story</span>
-                        <h2 className="section-title">MistriJi Kyu Bana?</h2>
-                        <p className="story-para">
-                            2023 mein jab hamare founder <strong>Sandeep Singh</strong> ki AC Garmiyo me kharab hui aur 3 din tak koi reliable mistri nahi mila — tab MistriJi ka idea aaya.
-                        </p>
-                        <p className="story-para">
-                            Unhone socha — ek aisa platform hona chahiye jahan <strong>ek call pe verified, skilled, aur affordable mistri aaye</strong> — bina kisi jhanjhat ke.
-                        </p>
-                        <p className="story-para">
-                            Aaj MistriJi Delhi NCR se shuru hokar poore India mein 10,000+ families ki pehli choice ban chuka hai.
-                        </p>
-                        <Link to="/booking" className="btn btn-primary" style={{ width: 'fit-content', marginTop: '16px' }}>
-                            📞 Book Your First Service
-                        </Link>
+const About = () => (
+    <main>
+        {/* ── Page Hero ── */}
+        <section className="page-hero">
+            <div className="page-hero-blob blob-a" />
+            <div className="page-hero-blob blob-b" />
+            <div className="container page-hero-inner">
+                <span className="badge">🏢 About MistriJii</span>
+                <h1>Who We <span className="gradient-text">Are</span></h1>
+                <p>A platform that brings quality home services to every Indian household — quickly, safely, and affordably.</p>
+            </div>
+        </section>
+
+        {/* ── Story ── */}
+        <section className="section story-section">
+            <div className="container story-grid">
+                <div className="story-content">
+                    <span className="badge badge-white">📖 Our Story</span>
+                    <h2>Why <span className="gradient-text">MistriJii</span> Was Born</h2>
+                    <p className="story-para">
+                        In 2023, our founder <strong>Sandeep Singh</strong> spent 3 frustrating days trying to find a reliable AC technician during peak summer. No one was trustworthy, pricing was unclear.
+                    </p>
+                    <p className="story-para">
+                        That's when MistriJii was born — a platform where <strong>one call brings a verified, skilled, and affordable expert</strong> to your door. No hassle, no surprises.
+                    </p>
+                    <p className="story-para">
+                        Today, MistriJii has become the first choice for 10,000+ families across India, with a rapidly growing network of expert technicians.
+                    </p>
+                    <Link to="/booking" className="btn btn-primary" style={{ width: 'fit-content', marginTop: '8px' }} id="about-book-btn">
+                        📅 Book Your First Service
+                    </Link>
+                </div>
+
+                <div>
+                    <div className="story-stats-grid">
+                        {storyStats.map((s, i) => (
+                            <div key={i} className="story-stat-card">
+                                <div className="ssc-val">{s.val}</div>
+                                <div className="ssc-label">{s.label}</div>
+                            </div>
+                        ))}
                     </div>
-                    <div className="story-visual">
-                        <div className="story-cards-wrap">
-                            <div className="story-stat-card glass-card sc-1">
-                                <div className="story-stat-val gradient-text">2023</div>
-                                <div className="story-stat-lbl">Founded</div>
+                </div>
+            </div>
+        </section>
+
+        {/* ── What We Do ── */}
+        <section className="section wwd-section">
+            <div className="container">
+                <div className="section-header">
+                    <span className="badge">🛠️ What We Do</span>
+                    <h2>Services We <span className="gradient-text">Provide</span></h2>
+                    <p>MistriJii gives you India's best home service experience — a solution for every need.</p>
+                </div>
+                <div className="wwd-grid">
+                    {whatWeDo.map((item, i) => (
+                        <div key={i} className="wwd-card" style={{ '--wwd-border': `${item.color}30` }}>
+                            <div className="wwd-icon" style={{ background: `${item.color}12`, border: `1px solid ${item.color}22` }}>
+                                <span>{item.icon}</span>
                             </div>
-                            <div className="story-stat-card glass-card sc-2">
-                                <div className="story-stat-val gradient-text">10K+</div>
-                                <div className="story-stat-lbl">Happy Customers</div>
-                            </div>
-                            <div className="story-stat-card glass-card sc-3">
-                                <div className="story-stat-val gradient-text">500+</div>
-                                <div className="story-stat-lbl">Expert Mistriyan</div>
-                            </div>
-                            <div className="story-stat-card glass-card sc-4">
-                                <div className="story-stat-val gradient-text">20+</div>
-                                <div className="story-stat-lbl">Cities in India</div>
-                            </div>
+                            <h3 className="wwd-title">{item.title}</h3>
+                            <p className="wwd-desc">{item.desc}</p>
+                            <div className="wwd-bar" style={{ background: item.color }} />
                         </div>
-                    </div>
+                    ))}
                 </div>
-            </section>
+            </div>
+        </section>
 
-            {/* What We Do */}
-            <section className="section what-we-do">
-                <div className="container">
-                    <div className="section-header">
-                        <span className="badge">🛠️ What We Do</span>
-                        <h2>Hum Kya <span className="gradient-text">Karte Hain</span></h2>
-                        <p>MistriJi pe aapko milega India ka best home service experience — har zaroorat ke liye ek solution.</p>
-                    </div>
-
-                    <div className="wwd-grid">
-                        {whatWeDo.map((item, i) => (
-                            <div key={i} className="wwd-card glass-card" style={{ '--wwd-color': item.color }}>
-                                <div className="wwd-icon" style={{ background: `${item.color}15`, border: `1px solid ${item.color}25` }}>
-                                    <span>{item.icon}</span>
-                                </div>
-                                <h3 className="wwd-title">{item.title}</h3>
-                                <p className="wwd-desc">{item.desc}</p>
-                                <div className="wwd-underline" style={{ background: item.color }}></div>
-                            </div>
-                        ))}
-                    </div>
+        {/* ── Values ── */}
+        <section className="section values-section">
+            <div className="container">
+                <div className="section-header">
+                    <span className="badge badge-cyan">💎 Our Values</span>
+                    <h2>What Makes Us <span className="gradient-text">Different</span></h2>
                 </div>
-            </section>
-
-            {/* Our Values */}
-            <section className="section values-section">
-                <div className="container">
-                    <div className="section-header">
-                        <span className="badge">💎 Our Values</span>
-                        <h2>Jo Cheez Hume <span className="gradient-text">Alag Banati Hai</span></h2>
-                    </div>
-                    <div className="values-grid">
-                        {values.map((v, i) => (
-                            <div key={i} className="value-card glass-card">
-                                <div className="value-icon">{v.icon}</div>
-                                <h3 className="value-title">{v.title}</h3>
-                                <p className="value-desc">{v.desc}</p>
-                            </div>
-                        ))}
-                    </div>
+                <div className="values-grid">
+                    {values.map((v, i) => (
+                        <div key={i} className="value-card">
+                            <div className="val-icon">{v.icon}</div>
+                            <h3 className="val-title">{v.title}</h3>
+                            <p className="val-desc">{v.desc}</p>
+                        </div>
+                    ))}
                 </div>
-            </section>
+            </div>
+        </section>
 
-            {/* Mission & Vision */}
-            <section className="section mission-section">
-                <div className="container mission-grid">
-                    <div className="mission-card glass-card" style={{ borderColor: 'rgba(255,107,53,0.3)' }}>
+        {/* ── Mission & Vision ── */}
+        <section className="section mission-section">
+            <div className="container">
+                <div className="section-header">
+                    <span className="badge">🎯 Our Purpose</span>
+                    <h2>Mission & <span className="gradient-text">Vision</span></h2>
+                </div>
+                <div className="mission-grid">
+                    <div className="mission-card" style={{ borderColor: 'rgba(249,115,22,0.25)' }}>
                         <div className="mission-icon">🎯</div>
-                        <h3>Hamara Mission</h3>
-                        <p>India ke har ghar tak affordable, reliable aur fast home services pahunchana — bina kisi jhamele ke.</p>
+                        <h3>Our Mission</h3>
+                        <p>To bring affordable, reliable and fast home services to every household in India — without any hassle or uncertainty.</p>
                     </div>
-                    <div className="mission-card glass-card" style={{ borderColor: 'rgba(0,212,255,0.3)' }}>
+                    <div className="mission-card" style={{ borderColor: 'rgba(6,182,212,0.25)' }}>
                         <div className="mission-icon">🔭</div>
-                        <h3>Hamara Vision</h3>
-                        <p>2026 tak India ka #1 home services platform banna aur 1 lakh+ mistri ko respect aur stable income dena.</p>
+                        <h3>Our Vision</h3>
+                        <p>To become India's #1 home services platform by 2026 — giving 1 lakh+ technicians a stable income and professional dignity.</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            {/* Team */}
-            <section className="section team-section">
-                <div className="container">
-                    <div className="section-header">
-                        <span className="badge">👥 Team</span>
-                        <h2>Hamari <span className="gradient-text">Team</span></h2>
-                        <p>Passionate people jo aapki service ko best banate hain.</p>
-                    </div>
-                    <div className="team-grid">
-                        {team.map((member, i) => (
-                            <div key={i} className="team-card glass-card">
-                                <div className="team-avatar" style={{ background: `${member.color}15`, border: `2px solid ${member.color}30` }}>
-                                    <span>{member.emoji}</span>
-                                </div>
-                                <h3 className="team-name">{member.name}</h3>
-                                <p className="team-role" style={{ color: member.color }}>{member.role}</p>
+        {/* ── Team ── */}
+        <section className="section team-section">
+            <div className="container">
+                <div className="section-header">
+                    <span className="badge badge-white">👥 Team</span>
+                    <h2>The People Behind <span className="gradient-text">MistriJii</span></h2>
+                    <p>Passionate professionals committed to making home services better for everyone.</p>
+                </div>
+                <div className="team-grid">
+                    {team.map((m, i) => (
+                        <div key={i} className="team-card">
+                            <div className="team-avatar" style={{ background: `${m.color}12`, border: `2px solid ${m.color}25` }}>
+                                {m.emoji}
                             </div>
-                        ))}
-                    </div>
+                            <h3 className="team-name">{m.name}</h3>
+                            <p className="team-role" style={{ color: m.color }}>{m.role}</p>
+                        </div>
+                    ))}
                 </div>
-            </section>
+            </div>
+        </section>
 
-            {/* CTA */}
-            <section className="section">
-                <div className="container">
-                    <div className="about-cta glass-card">
-                        <h2>Ready to Experience <span className="gradient-text">MistriJi</span>?</h2>
-                        <p>Abhi book karo aur 30 minutes mein expert apke ghar pe.</p>
-                        <Link to="/booking" className="btn btn-primary" style={{ marginTop: '12px' }}>
-                            Book a Service →
-                        </Link>
-                    </div>
+        {/* ── CTA ── */}
+        <section className="section">
+            <div className="container">
+                <div className="about-cta">
+                    <h2>Ready to Experience <span className="gradient-text">MistriJii</span>?</h2>
+                    <p>Book now and get an expert at your doorstep within 30 minutes. Satisfaction guaranteed.</p>
+                    <Link to="/booking" className="btn btn-primary btn-lg" id="about-cta-btn">
+                        Book a Service →
+                    </Link>
                 </div>
-            </section>
-        </main>
-    );
-};
+            </div>
+        </section>
+    </main>
+);
 
 export default About;
