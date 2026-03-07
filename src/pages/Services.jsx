@@ -1,6 +1,31 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
 import './Services.css';
+
+const servicesSchema = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'All Home Services — MistriJii',
+        description: 'Complete list of professional home services available for booking at MistriJii.',
+        url: 'https://mistrijii.in/services',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Electrician — From ₹199', url: 'https://mistrijii.in/booking?service=Electrician' },
+            { '@type': 'ListItem', position: 2, name: 'Inverter & Battery — From ₹299', url: 'https://mistrijii.in/booking?service=Inverter+%26+Battery' },
+            { '@type': 'ListItem', position: 3, name: 'AC Service & Repair — From ₹499', url: 'https://mistrijii.in/booking?service=AC+Service+%26+Repair' },
+            { '@type': 'ListItem', position: 4, name: 'AC Installation — From ₹699', url: 'https://mistrijii.in/booking?service=AC+Installation' },
+            { '@type': 'ListItem', position: 5, name: 'General Mechanic — From ₹299', url: 'https://mistrijii.in/booking?service=General+Mechanic' },
+            { '@type': 'ListItem', position: 6, name: 'Plumber — From ₹199', url: 'https://mistrijii.in/booking?service=Plumber' },
+            { '@type': 'ListItem', position: 7, name: 'Car Service — From ₹799', url: 'https://mistrijii.in/booking?service=Car+Service' },
+            { '@type': 'ListItem', position: 8, name: 'Bike Service — From ₹399', url: 'https://mistrijii.in/booking?service=Bike+Service' },
+            { '@type': 'ListItem', position: 9, name: 'Painter — From ₹599', url: 'https://mistrijii.in/booking?service=Painter' },
+            { '@type': 'ListItem', position: 10, name: 'Appliance Repair — From ₹249', url: 'https://mistrijii.in/booking?service=TV+%2F+Appliance+Repair' },
+            { '@type': 'ListItem', position: 11, name: 'Solar Installation', url: 'https://mistrijii.in/booking?service=Solar+Installation' },
+        ],
+    },
+];
+
 
 const categories = [
     { id: 'all', label: 'All Services', icon: '🏠' },
@@ -87,6 +112,13 @@ const Services = () => {
 
     return (
         <main>
+            <SEOHead
+                title="All Home Services — AC Repair, Electrician, Mechanic, Plumber Near Me"
+                description="Browse 11+ professional home services: AC repair, Electrician, Mechanic, Plumber, Car & Bike service. Police-verified experts. Guaranteed quality. Book online in 2 min. Starting ₹199."
+                canonical="/services"
+                schema={servicesSchema}
+            />
+
             {/* ── Page Hero ── */}
             <section className="page-hero">
                 <div className="page-hero-blob blob-a" />

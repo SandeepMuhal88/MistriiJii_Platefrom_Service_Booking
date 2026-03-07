@@ -1,5 +1,42 @@
 import { Link } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
 import './Home.css';
+
+const homeSchema = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: 'Home Services — MistriJii',
+        serviceType: 'Home Services',
+        provider: {
+            '@type': 'LocalBusiness',
+            name: 'MistriJii',
+            url: 'https://mistrijii.in',
+            telephone: '+91-9511582964',
+        },
+        areaServed: { '@type': 'Country', name: 'India' },
+        description:
+            'Book AC repair, Electrician, Mechanic, Plumber, Car & Bike service at your doorstep. Police-verified professionals. Starting ₹199.',
+        offers: {
+            '@type': 'AggregateOffer',
+            lowPrice: '199',
+            highPrice: '2999',
+            priceCurrency: 'INR',
+        },
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'Top Home Services by MistriJii',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Electrician Service — From ₹199', url: 'https://mistrijii.in/services' },
+            { '@type': 'ListItem', position: 2, name: 'AC Service & Repair — From ₹499', url: 'https://mistrijii.in/services' },
+            { '@type': 'ListItem', position: 3, name: 'General Mechanic — From ₹299', url: 'https://mistrijii.in/services' },
+            { '@type': 'ListItem', position: 4, name: 'Car Service at Home — From ₹799', url: 'https://mistrijii.in/services' },
+        ],
+    },
+];
+
 
 const services = [
     {
@@ -73,6 +110,13 @@ const testimonials = [
 
 const Home = () => (
     <main className="home">
+
+        <SEOHead
+            title="Expert Home Services At Your Doorstep — AC, Electrician, Mechanic"
+            description="Book AC service, Electrician, Mechanic, Plumber, Car & Bike service at your home. Police-verified professionals arrive in 60 min. Starting ₹199. Available 24/7 across India."
+            canonical="/"
+            schema={homeSchema}
+        />
 
         {/* ── HERO ── */}
         <section className="hero" aria-label="Hero section">

@@ -1,5 +1,30 @@
 import { Link } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
 import './About.css';
+
+const aboutSchema = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        '@id': 'https://mistrijii.in/#organization',
+        name: 'MistriJii',
+        url: 'https://mistrijii.in',
+        logo: 'https://mistrijii.in/logo.png',
+        foundingDate: '2023',
+        description:
+            'MistriJii is India\'s on-demand home services platform connecting users with police-verified technicians for AC repair, Electrician, Mechanic, Plumber, Car & Bike service.',
+        founders: [{ '@type': 'Person', name: 'Sandeep Singh' }],
+        contactPoint: {
+            '@type': 'ContactPoint',
+            telephone: '+91-9511582964',
+            contactType: 'customer service',
+            availableLanguage: ['Hindi', 'English'],
+            contactOption: 'TollFree',
+            areaServed: 'IN',
+        },
+    },
+];
+
 
 const whatWeDo = [
     { icon: '⚡', title: 'Electrical Solutions', desc: 'From short circuits to full rewiring — our certified electricians handle it all. Safe, fast, reliable.', color: '#F59E0B' },
@@ -33,6 +58,13 @@ const storyStats = [
 
 const About = () => (
     <main>
+        <SEOHead
+            title="About MistriJii — India's Trusted Home Services Platform Since 2023"
+            description="MistriJii was founded in 2023 by Sandeep Singh to bring reliable, affordable & fast home services to every Indian household. 10,000+ customers, 500+ verified experts, 4.9★ rating."
+            canonical="/about"
+            schema={aboutSchema}
+        />
+
         {/* ── Page Hero ── */}
         <section className="page-hero">
             <div className="page-hero-blob blob-a" />

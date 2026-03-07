@@ -1,6 +1,35 @@
 import { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
 import './Booking.css';
+
+const bookingSchema = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'Book a Home Service — MistriJii',
+        url: 'https://mistrijii.in/booking',
+        description:
+            'Book any home service in 3 easy steps: enter your details, choose your service & time slot, confirm your address. Expert arrives within 60 minutes.',
+        potentialAction: {
+            '@type': 'ReserveAction',
+            target: {
+                '@type': 'EntryPoint',
+                urlTemplate: 'https://mistrijii.in/booking',
+                inLanguage: 'en-IN',
+                actionPlatform: [
+                    'http://schema.org/DesktopWebPlatform',
+                    'http://schema.org/MobileWebPlatform',
+                ],
+            },
+            result: {
+                '@type': 'Reservation',
+                name: 'Home Service Booking',
+            },
+        },
+    },
+];
+
 
 const services = [
     'Electrician', 'AC Service & Repair', 'AC Installation', 'Inverter & Battery',
@@ -92,6 +121,13 @@ const Booking = () => {
 
     return (
         <main>
+            <SEOHead
+                title="Book a Home Service Online — AC, Electrician, Mechanic | MistriJii"
+                description="Book AC repair, Electrician, Plumber, Mechanic & more in 3 easy steps. Choose your service, pick a time slot, get an expert at your doorstep in 60 min. Starting ₹199."
+                canonical="/booking"
+                schema={bookingSchema}
+            />
+
             {/* ── Page Hero ── */}
             <section className="page-hero" style={{ paddingBottom: '48px' }}>
                 <div className="page-hero-blob blob-a" />

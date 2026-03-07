@@ -1,5 +1,30 @@
 import { useState } from 'react';
+import SEOHead from '../components/SEOHead';
 import './Contact.css';
+
+const contactSchema = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'ContactPage',
+        name: 'Contact MistriJii — Home Services Support',
+        url: 'https://mistrijii.in/contact',
+        description:
+            'Contact MistriJii for home service bookings, support, or queries. Call +91 95115 82964 or WhatsApp us. Available Mon–Sun 8 AM – 10 PM.',
+        mainEntity: {
+            '@type': 'LocalBusiness',
+            name: 'MistriJii',
+            telephone: '+91-9511582964',
+            email: 'support@mistrijii.in',
+            address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Bikaner',
+                addressRegion: 'Rajasthan',
+                addressCountry: 'IN',
+            },
+        },
+    },
+];
+
 
 const contactCards = [
     { icon: '📞', title: 'Call Us', value: '+91 95115 82964', sub: 'Mon–Sun, 8 AM – 10 PM', href: 'tel:+919511582964' },
@@ -33,6 +58,13 @@ const Contact = () => {
 
     return (
         <main>
+            <SEOHead
+                title="Contact Us — MistriJii Home Services Support"
+                description="Contact MistriJii for AC repair, Electrician, Mechanic bookings & support. Call +91 95115 82964 or WhatsApp. Email: support@mistrijii.in. Available 7 days a week, 8 AM – 10 PM."
+                canonical="/contact"
+                schema={contactSchema}
+            />
+
             {/* ── Page Hero ── */}
             <section className="page-hero">
                 <div className="page-hero-blob blob-a" />

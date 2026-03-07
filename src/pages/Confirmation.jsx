@@ -1,4 +1,5 @@
 import { useLocation, Link } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
 import './Confirmation.css';
 
 const nextSteps = [
@@ -25,6 +26,12 @@ const Confirmation = () => {
 
     return (
         <div className="confirmation-page">
+            <SEOHead
+                title="Booking Confirmed | MistriJii"
+                description="Your MistriJii home service booking is confirmed."
+                noindex={true}
+            />
+
             <div className="conf-card">
                 <div className="conf-success-icon" aria-hidden="true">✅</div>
 
