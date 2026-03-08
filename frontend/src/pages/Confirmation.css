@@ -1,0 +1,238 @@
+/* ═══════════════════════════════
+   CONFIRMATION PAGE
+   ═══════════════════════════════ */
+
+.confirmation-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 24px 60px;
+    background: var(--bg-base);
+}
+
+.conf-card {
+    background: var(--bg-elevated);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--r-3xl);
+    padding: clamp(40px, 5vw, 64px);
+    max-width: 640px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: scaleIn 0.6s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.conf-card::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 200px;
+    background: radial-gradient(ellipse, rgba(16, 185, 129, 0.12), transparent 70%);
+    pointer-events: none;
+}
+
+.conf-success-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.1);
+    border: 2px solid rgba(16, 185, 129, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    margin: 0 auto 24px;
+    animation: scaleIn 0.5s ease 0.2s both;
+    position: relative;
+    z-index: 1;
+}
+
+.conf-card h1 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.conf-card>p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 36px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Booking ID badge */
+.conf-booking-id {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.25);
+    border-radius: var(--r-full);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--brand-orange);
+    margin-bottom: 32px;
+    letter-spacing: 0.05em;
+}
+
+/* Summary Box */
+.conf-summary {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--r-2xl);
+    padding: 24px;
+    margin-bottom: 28px;
+    text-align: left;
+}
+
+.cs-heading {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+}
+
+.cs-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cs-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 16px;
+    font-size: 0.87rem;
+}
+
+.cs-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.cs-row-key {
+    color: var(--text-muted);
+}
+
+.cs-row-val {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: right;
+}
+
+/* What happens next */
+.conf-next-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.conf-next-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--r-lg);
+    font-size: 0.85rem;
+}
+
+.cns-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--grad-brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.cns-text strong {
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 2px;
+}
+
+.cns-text span {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* Actions */
+.conf-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.conf-actions .btn {
+    min-width: 160px;
+    justify-content: center;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .confirmation-page {
+        padding: 90px 16px 48px;
+    }
+
+    .conf-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .conf-actions .btn {
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+/* ── Light Mode ── */
+html[data-theme="light"] .confirmation-page {
+    background: var(--bg-base);
+}
+
+html[data-theme="light"] .conf-card {
+    background: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+html[data-theme="light"] .conf-summary {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.07);
+}
+
+html[data-theme="light"] .cs-row {
+    border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+html[data-theme="light"] .conf-next-step {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.06);
+}
