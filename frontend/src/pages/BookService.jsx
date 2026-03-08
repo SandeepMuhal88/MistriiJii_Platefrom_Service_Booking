@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
-import './Booking.css';
+import './BookService.css';
 
 const bookingSchema = [
     {
@@ -50,7 +50,7 @@ const trustItems = [
     { icon: '🔄', title: '30-Day Warranty', sub: 'Free re-service guarantee' },
 ];
 
-const Booking = () => {
+const BookService = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const today = new Date().toISOString().split('T')[0];
@@ -332,4 +332,4 @@ const Booking = () => {
     );
 };
 
-export default Booking;
+export default BookService;

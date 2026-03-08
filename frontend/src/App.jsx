@@ -1,14 +1,27 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './routes/ProtectedRoute';
+
+// Public Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+
+// Public Pages
 import Home from './pages/Home';
 import Services from './pages/Services';
 import About from './pages/About';
-import Booking from './pages/Booking';
+import BookService from './pages/BookService';
 import Confirmation from './pages/Confirmation';
 import Contact from './pages/Contact';
+import Login from './pages/Login';
+
+// Admin Pages
+import Dashboard from './admin/Dashboard';
+import Bookings from './admin/Bookings';
+import Technicians from './admin/Technicians';
+
 import './index.css';
 import './App.css';
 
@@ -38,7 +51,7 @@ const InstagramFloat = () => (
 
 /* ── 404 Page ── */
 const NotFound = () => (
-  <div className="not-found">
+  <div className="not-found" style={{ marginTop: '100px' }}>
     <div className="nf-code">404</div>
     <h2 className="nf-title">Page Not Found</h2>
     <p className="nf-message">The page you're looking for doesn't exist or has been moved.</p>
@@ -49,22 +62,58 @@ const NotFound = () => (
 function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/booking/confirmation" element={<Confirmation />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <div className="divider" />
-        <Footer />
-        <InstagramFloat />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          {/* We can conditionally render Navbar and Footer based on routes, but for simplicity, we'll keep them globally or use layout wrappers. */}
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/*" element={
+              <>
+                <Navbar />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/booking" element={<BookService />} />
+                  <Route path="/booking/confirmation" element={<Confirmation />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+                <div className="divider" />
+                <Footer />
+                <InstagramFloat />
+              </>
+            } />
+
+            {/* Admin Routes */}
+            <Route path="/admin/*" element={
+              <ProtectedRoute>
+                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#f5f7fa' }}>
+                  {/* Simple Admin Navbar or reuse the main Navbar */}
+                  <div style={{ backgroundColor: '#fff', padding: '15px 30px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between' }}>
+                    <h2>Mistrijii Admin</h2>
+                    <nav style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                      <a href="/admin" style={{ textDecoration: 'none', color: '#333' }}>Dashboard</a>
+                      <a href="/admin/bookings" style={{ textDecoration: 'none', color: '#333' }}>Bookings</a>
+                      <a href="/admin/technicians" style={{ textDecoration: 'none', color: '#333' }}>Technicians</a>
+                      <a href="/" style={{ textDecoration: 'none', color: '#688cff', fontWeight: 'bold' }}>To Main Site</a>
+                    </nav>
+                  </div>
+                  <div style={{ padding: '20px', flex: 1 }}>
+                    <Routes>
+                      <Route path="/" element={<Dashboard />} />
+                      <Route path="bookings" element={<Bookings />} />
+                      <Route path="technicians" element={<Technicians />} />
+                    </Routes>
+                  </div>
+                </div>
+              </ProtectedRoute>
+            } />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
