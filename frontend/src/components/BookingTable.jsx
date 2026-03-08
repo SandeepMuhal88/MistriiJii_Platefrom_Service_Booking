@@ -1,35 +1,32 @@
 const BookingTable = ({ bookings = [] }) => {
     return (
-        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px', backgroundColor: '#fff', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-            <thead style={{ backgroundColor: '#f9f9f9' }}>
+        <table className="w-full text-left border-collapse mt-5">
+            <thead className="border-b bg-gray-50">
                 <tr>
-                    <th style={{ borderBottom: '1px solid #eee', textAlign: 'left', padding: '12px' }}>ID</th>
-                    <th style={{ borderBottom: '1px solid #eee', textAlign: 'left', padding: '12px' }}>Customer</th>
-                    <th style={{ borderBottom: '1px solid #eee', textAlign: 'left', padding: '12px' }}>Service</th>
-                    <th style={{ borderBottom: '1px solid #eee', textAlign: 'left', padding: '12px' }}>Status</th>
+                    <th className="py-3 px-4 font-medium text-gray-700 border-b">ID</th>
+                    <th className="py-3 px-4 font-medium text-gray-700 border-b">Customer</th>
+                    <th className="py-3 px-4 font-medium text-gray-700 border-b">Service</th>
+                    <th className="py-3 px-4 font-medium text-gray-700 border-b">Status</th>
                 </tr>
             </thead>
             <tbody>
                 {bookings.length > 0 ? bookings.map((b) => (
-                    <tr key={b.id}>
-                        <td style={{ padding: '12px', borderBottom: '1px solid #eee' }}>{b.id}</td>
-                        <td style={{ padding: '12px', borderBottom: '1px solid #eee' }}>{b.customer}</td>
-                        <td style={{ padding: '12px', borderBottom: '1px solid #eee' }}>{b.service}</td>
-                        <td style={{ padding: '12px', borderBottom: '1px solid #eee' }}>
-                            <span style={{
-                                padding: '4px 8px',
-                                borderRadius: '4px',
-                                fontSize: '12px',
-                                backgroundColor: b.status === 'Completed' ? '#d4edda' : '#fff3cd',
-                                color: b.status === 'Completed' ? '#155724' : '#856404'
-                            }}>
+                    <tr key={b.id} className="border-b hover:bg-gray-50 transition-colors">
+                        <td className="py-3 px-4">{b.id}</td>
+                        <td className="py-3 px-4">{b.customer}</td>
+                        <td className="py-3 px-4">{b.service}</td>
+                        <td className="py-3 px-4">
+                            <span className={`px-3 py-1 text-xs font-semibold rounded-full ${b.status === 'Completed'
+                                    ? "bg-green-100 text-green-800"
+                                    : "bg-yellow-100 text-yellow-800"
+                                }`}>
                                 {b.status}
                             </span>
                         </td>
                     </tr>
                 )) : (
                     <tr>
-                        <td colSpan="4" style={{ padding: '12px', textAlign: 'center' }}>No bookings found</td>
+                        <td colSpan="4" className="py-4 text-center text-gray-500">No bookings found</td>
                     </tr>
                 )}
             </tbody>

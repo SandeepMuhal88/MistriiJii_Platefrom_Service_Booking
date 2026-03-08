@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = () => {
-        setIsAuthenticated(true);
+        setIsAuthenticated(false);
     };
 
     return (

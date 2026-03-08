@@ -8,6 +8,7 @@ const navLinks = [
     { to: '/services', label: 'Services' },
     { to: '/about', label: 'About' },
     { to: '/contact', label: 'Contact' },
+    { to: '/login', label: 'Admin' },
 ];
 
 /* ── Sun Icon ── */

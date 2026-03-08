@@ -1131,3 +1131,97 @@ html[data-theme="light"] .glass-card {
     padding: 4px 10px;
   }
 }
+
+/* ===== Global Layout ===== */
+
+.page-container {
+  padding: 20px;
+  margin-top: 60px;
+}
+
+/* ===== Page Title ===== */
+
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.page-subtitle {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* ===== Buttons ===== */
+
+.btn-primary {
+  background-color: #ff7a00;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #e66c00;
+}
+
+.btn-edit {
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.btn-delete {
+  color: #dc2626;
+  cursor: pointer;
+}
+
+/* ===== Card ===== */
+
+.card {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/* ===== Table ===== */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.table-row:hover {
+  background: #f9f9f9;
+}
+
+/* ===== Status Badge ===== */
+
+.status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.status-verified {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
