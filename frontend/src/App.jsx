@@ -18,9 +18,7 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 
 // Admin Pages
-import Dashboard from './admin/Dashboard';
-import Bookings from './admin/Bookings';
-import Technicians from './admin/Technicians';
+import AdminLayout from './admin/AdminLayout';
 
 import './index.css';
 import './App.css';
@@ -90,25 +88,7 @@ function App() {
             {/* Admin Routes */}
             <Route path="/admin/*" element={
               <ProtectedRoute>
-                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#f5f7fa' }}>
-                  {/* Simple Admin Navbar or reuse the main Navbar */}
-                  <div style={{ backgroundColor: '#fff', padding: '15px 30px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between' }}>
-                    <h2>Mistrijii Admin</h2>
-                    <nav style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                      <a href="/admin" style={{ textDecoration: 'none', color: '#333' }}>Dashboard</a>
-                      <a href="/admin/bookings" style={{ textDecoration: 'none', color: '#333' }}>Bookings</a>
-                      <a href="/admin/technicians" style={{ textDecoration: 'none', color: '#333' }}>Technicians</a>
-                      <a href="/" style={{ textDecoration: 'none', color: '#688cff', fontWeight: 'bold' }}>To Main Site</a>
-                    </nav>
-                  </div>
-                  <div style={{ padding: '20px', flex: 1 }}>
-                    <Routes>
-                      <Route path="/" element={<Dashboard />} />
-                      <Route path="bookings" element={<Bookings />} />
-                      <Route path="technicians" element={<Technicians />} />
-                    </Routes>
-                  </div>
-                </div>
+                <AdminLayout />
               </ProtectedRoute>
             } />
           </Routes>
