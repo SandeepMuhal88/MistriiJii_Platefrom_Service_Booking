@@ -109,7 +109,7 @@ const testimonials = [
 ];
 
 const Home = () => (
-    <main className="home">
+    <main className="home flex-1 pt-[70px]">
 
         <SEOHead
             title="Expert Home Services At Your Doorstep — AC, Electrician, Mechanic"

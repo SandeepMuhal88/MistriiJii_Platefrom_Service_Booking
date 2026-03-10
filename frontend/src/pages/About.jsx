@@ -57,7 +57,7 @@ const storyStats = [
 ];
 
 const About = () => (
-    <main>
+    <main className="flex-1 pt-[70px]">
         <SEOHead
             title="About MistriJii — India's Trusted Home Services Platform Since 2023"
             description="MistriJii was founded in 2023 by Sandeep Singh to bring reliable, affordable & fast home services to every Indian household. 10,000+ customers, 500+ verified experts, 4.9★ rating."

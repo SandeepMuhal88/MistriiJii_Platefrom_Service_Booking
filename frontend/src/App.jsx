@@ -21,7 +21,6 @@ import Login from './pages/Login';
 import AdminLayout from './admin/AdminLayout';
 
 import './index.css';
-import './App.css';
 
 /* ── Scroll to top on navigation ── */
 const ScrollToTop = () => {
@@ -49,10 +48,10 @@ const InstagramFloat = () => (
 
 /* ── 404 Page ── */
 const NotFound = () => (
-  <div className="not-found" style={{ marginTop: '100px' }}>
-    <div className="nf-code">404</div>
-    <h2 className="nf-title">Page Not Found</h2>
-    <p className="nf-message">The page you're looking for doesn't exist or has been moved.</p>
+  <div className="min-h-[calc(100vh-70px)] flex flex-col items-center justify-center gap-5 text-center px-6 py-10" style={{ marginTop: '100px' }}>
+    <div className="font-['Plus_Jakarta_Sans',sans-serif] text-[clamp(6rem,15vw,10rem)] font-black tracking-[-0.06em] leading-none bg-[image:var(--grad-brand)] bg-clip-text text-transparent">404</div>
+    <h2 className="text-2xl font-bold">Page Not Found</h2>
+    <p className="text-[color:var(--text-muted)] max-w-[360px]">The page you're looking for doesn't exist or has been moved.</p>
     <a href="/" className="btn btn-primary btn-lg">🏠 Back to Home</a>
   </div>
 );

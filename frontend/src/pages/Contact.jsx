@@ -57,7 +57,7 @@ const Contact = () => {
     };
 
     return (
-        <main>
+        <main className="flex-1 pt-[70px]">
             <SEOHead
                 title="Contact Us — MistriJii Home Services Support"
                 description="Contact MistriJii for AC repair, Electrician, Mechanic bookings & support. Call +91 95115 82964 or WhatsApp. Email: support@mistrijii.in. Available 7 days a week, 8 AM – 10 PM."

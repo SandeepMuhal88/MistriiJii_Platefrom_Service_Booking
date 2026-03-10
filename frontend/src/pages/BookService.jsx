@@ -120,7 +120,7 @@ const BookService = () => {
     ];
 
     return (
-        <main>
+        <main className="flex-1 pt-[70px]">
             <SEOHead
                 title="Book a Home Service Online — AC, Electrician, Mechanic | MistriJii"
                 description="Book AC repair, Electrician, Plumber, Mechanic & more in 3 easy steps. Choose your service, pick a time slot, get an expert at your doorstep in 60 min. Starting ₹199."

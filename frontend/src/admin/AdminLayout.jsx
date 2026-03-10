@@ -1,91 +1,63 @@
-import { Link, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import Dashboard from './Dashboard';
-import Bookings from './Bookings';
-import Technicians from './Technicians';
+import { Outlet, Link, useLocation } from 'react-router-dom';
+import { LayoutDashboard, LogOut, Wrench } from 'lucide-react';
 
-const AdminLayout = () => {
-    const { logout } = useAuth();
-    const navigate = useNavigate();
+export default function AdminLayout() {
     const location = useLocation();
 
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
-
-    const navLinks = [
-        { path: '/admin', label: 'Dashboard', icon: '📊' },
-        { path: '/admin/bookings', label: 'Bookings', icon: '📅' },
-        { path: '/admin/technicians', label: 'Technicians', icon: '🛠️' }
+    const navItems = [
+        { icon: LayoutDashboard, label: 'Dashboard', path: '/admin' },
     ];
 
     return (
-        <div className="flex bg-gray-50 min-h-screen font-sans text-gray-900">
+        <div className="min-h-screen bg-slate-100 flex">
             {/* Sidebar */}
-            <div className="w-72 bg-white border-r border-gray-200 flex flex-col shadow-sm hidden md:flex">
-                <div className="p-6 border-b border-gray-100 flex items-center gap-3">
-                    <span className="text-2xl font-black tracking-tight text-gray-900">
-                        Mistri<span className="text-orange-500">Jii</span>
-                    </span>
-                    <span className="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wider">Admin</span>
+            <aside className="w-64 bg-slate-900 text-white hidden md:flex flex-col">
+                <div className="h-16 flex items-center px-6 border-b border-slate-800">
+                    <Link to="/" className="flex items-center gap-2 text-white hover:text-indigo-400 transition-colors">
+                        <Wrench className="w-6 h-6" />
+                        <span className="font-bold text-xl">MistriJii Admin</span>
+                    </Link>
                 </div>
 
-                <ul className="flex-1 p-4 space-y-1.5 overflow-y-auto">
-                    {navLinks.map((link) => {
-                        const isActive = location.pathname === link.path || (link.path !== '/admin' && location.pathname.startsWith(link.path));
-
+                <nav className="flex-1 py-6 px-4 space-y-2">
+                    {navItems.map((item) => {
+                        const isActive = location.pathname === item.path;
                         return (
-                            <li key={link.path}>
-                                <Link
-                                    to={link.path}
-                                    className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all ${isActive
-                                            ? 'bg-orange-50 text-orange-600'
-                                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                                        }`}
-                                >
-                                    <span className="text-lg">{link.icon}</span>
-                                    {link.label}
-                                </Link>
-                            </li>
+                            <Link
+                                key={item.path}
+                                to={item.path}
+                                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${isActive
+                                        ? 'bg-indigo-600 text-white'
+                                        : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                                    }`}
+                            >
+                                <item.icon className="w-5 h-5" />
+                                <span className="font-medium">{item.label}</span>
+                            </Link>
                         );
                     })}
-                </ul>
+                </nav>
 
-                <div className="p-4 border-t border-gray-100 space-y-2">
-                    <Link to="/" className="flex items-center gap-3 px-4 py-3 text-blue-600 hover:bg-blue-50 hover:text-blue-700 rounded-lg font-medium transition-colors">
-                        <span>🏠</span> Back to Main Site
+                <div className="p-4 border-t border-slate-800">
+                    <Link to="/" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-colors">
+                        <LogOut className="w-5 h-5" />
+                        <span className="font-medium">Exit Admin</span>
                     </Link>
-                    <button
-                        onClick={handleLogout}
-                        className="w-full flex items-center gap-3 text-left px-4 py-3 text-red-600 hover:bg-red-50 hover:text-red-700 rounded-lg font-medium transition-colors"
-                    >
-                        <span>🚪</span> Logout
-                    </button>
                 </div>
-            </div>
+            </aside>
 
-            {/* Main Content Area */}
-            <div className="flex-1 overflow-y-auto flex flex-col">
+            {/* Main Content */}
+            <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 {/* Mobile Header */}
-                <div className="md:hidden bg-white border-b border-gray-200 p-4 flex justify-between items-center sticky top-0 z-10 shadow-sm">
-                    <span className="text-xl font-black tracking-tight text-gray-900">
-                        Mistri<span className="text-orange-500">Jii</span> <span className="text-xs bg-orange-100 text-orange-700 px-1 py-0.5 rounded">ADMIN</span>
-                    </span>
-                    <button onClick={handleLogout} className="text-sm font-semibold text-red-500">Logout</button>
-                </div>
+                <header className="md:hidden h-16 bg-white border-b border-slate-200 flex items-center px-4 justify-between">
+                    <span className="font-bold text-xl text-slate-900">Admin</span>
+                    <Link to="/" className="text-sm text-indigo-600 font-medium">Exit</Link>
+                </header>
 
-                {/* Page Content */}
-                <div className="p-6 md:p-10 flex-1 max-w-7xl w-full mx-auto">
-                    <Routes>
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="bookings" element={<Bookings />} />
-                        <Route path="technicians" element={<Technicians />} />
-                    </Routes>
+                <div className="flex-1 overflow-auto p-4 md:p-8">
+                    <Outlet />
                 </div>
-            </div>
+            </main>
         </div>
     );
-};
-
-export default AdminLayout;
+}

@@ -111,7 +111,7 @@ const Services = () => {
     const filtered = active === 'all' ? allServices : allServices.filter(s => s.category === active);
 
     return (
-        <main>
+        <main className="flex-1 pt-[70px]">
             <SEOHead
                 title="All Home Services — AC Repair, Electrician, Mechanic, Plumber Near Me"
                 description="Browse 11+ professional home services: AC repair, Electrician, Mechanic, Plumber, Car & Bike service. Police-verified experts. Guaranteed quality. Book online in 2 min. Starting ₹199."
