@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SEOHead from '../components/SEOHead';
+import SEOHead from '../admin/components/SEOHead';
 import './Contact.css';
 
 const contactSchema = [

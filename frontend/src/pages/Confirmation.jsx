@@ -1,5 +1,5 @@
 import { useLocation, Link } from 'react-router-dom';
-import SEOHead from '../components/SEOHead';
+import SEOHead from '../admin/components/SEOHead';
 import './Confirmation.css';
 
 const nextSteps = [

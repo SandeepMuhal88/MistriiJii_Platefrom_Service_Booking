@@ -1,4 +1,4 @@
-import BookingTable from '../components/BookingTable';
+import BookingTable from './components/BookingTable';
 
 const Bookings = () => {
     const dummyBookings = [

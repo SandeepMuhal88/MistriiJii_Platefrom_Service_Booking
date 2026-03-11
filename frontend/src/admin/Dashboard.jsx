@@ -4,7 +4,7 @@ const Dashboard = () => {
             {/* Header */}
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Overview</h1>
+                    <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Dashboard</h1>
                     <p className="text-gray-500 mt-1">Welcome back, track your platform analytics here.</p>
                 </div>
             </div>
@@ -14,27 +14,27 @@ const Dashboard = () => {
                 <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-6 transition-all hover:shadow-md hover:border-gray-200 group">
                     <div className="flex justify-between items-start">
                         <div>
-                            <h3 className="text-gray-500 font-medium text-sm text-transform: uppercase tracking-wider mb-1">Total Bookings</h3>
+                            <h3 className="text-gray-500 font-medium text-sm text-transform: uppercase tracking-wider mb-1">Total</h3>
                             <p className="text-4xl font-black text-gray-800">245</p>
                         </div>
-                        <div className="p-4 bg-blue-50 text-blue-600 rounded-xl group-hover:scale-110 transition-transform">📅</div>
+                        <div className="p-4 bg-blue-50 text-blue-600 rounded-xl group-hover:scale-110 transition-transform">📊</div>
                     </div>
                 </div>
 
                 <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-6 transition-all hover:shadow-md hover:border-gray-200 group">
                     <div className="flex justify-between items-start">
                         <div>
-                            <h3 className="text-gray-500 font-medium text-sm text-transform: uppercase tracking-wider mb-1">Active Technicians</h3>
+                            <h3 className="text-gray-500 font-medium text-sm text-transform: uppercase tracking-wider mb-1">Pending</h3>
                             <p className="text-4xl font-black text-gray-800">42</p>
                         </div>
-                        <div className="p-4 bg-orange-50 text-orange-600 rounded-xl group-hover:scale-110 transition-transform">🛠️</div>
+                        <div className="p-4 bg-orange-50 text-orange-600 rounded-xl group-hover:scale-110 transition-transform">⏳</div>
                     </div>
                 </div>
 
                 <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-6 transition-all hover:shadow-md hover:border-gray-200 group">
                     <div className="flex justify-between items-start">
                         <div>
-                            <h3 className="text-gray-500 font-medium text-sm text-transform: uppercase tracking-wider mb-1">Completed Jobs</h3>
+                            <h3 className="text-gray-500 font-medium text-sm text-transform: uppercase tracking-wider mb-1">Confirmed</h3>
                             <p className="text-4xl font-black text-gray-800">180</p>
                         </div>
                         <div className="p-4 bg-green-50 text-green-600 rounded-xl group-hover:scale-110 transition-transform">✅</div>
@@ -55,24 +55,27 @@ const Dashboard = () => {
                     <table className="w-full text-left whitespace-nowrap">
                         <thead className="text-xs uppercase tracking-wider text-gray-500 border-b border-gray-100">
                             <tr>
-                                <th className="py-3 px-4 font-semibold text-gray-600">Customer</th>
+                                <th className="py-3 px-4 font-semibold text-gray-600">Name</th>
+                                <th className="py-3 px-4 font-semibold text-gray-600">Phone</th>
                                 <th className="py-3 px-4 font-semibold text-gray-600">Service</th>
-                                <th className="py-3 px-4 font-semibold text-gray-600">Date</th>
-                                <th className="py-3 px-4 font-semibold text-gray-600 text-right">Status</th>
+                                <th className="py-3 px-4 font-semibold text-gray-600">Status</th>
+                                <th className="py-3 px-4 font-semibold text-gray-600">Action</th>
                             </tr>
                         </thead>
                         <tbody className="text-sm">
                             <tr className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
                                 <td className="py-4 px-4 font-semibold text-gray-900">Rahul Sharma</td>
-                                <td className="py-4 px-4 text-gray-600"><span className="bg-gray-100 px-2 py-1 rounded text-xs font-medium border border-gray-200">AC Repair</span></td>
-                                <td className="py-4 px-4 text-gray-500 font-medium">10 Mar 2026</td>
-                                <td className="py-4 px-4 text-right"><span className="px-3 py-1 bg-green-50 text-green-600 border border-green-200 rounded-full text-xs font-bold uppercase tracking-wide">Confirmed</span></td>
+                                <td className="py-4 px-4 text-gray-600">9876543210</td>
+                                <td className="py-4 px-4 text-gray-600">AC Repair</td>
+                                <td className="py-4 px-4"><span className="px-3 py-1 bg-green-50 text-green-600 border border-green-200 rounded-full text-xs font-bold uppercase tracking-wide">Confirmed</span></td>
+                                <td className="py-4 px-4"><button className="text-blue-500 hover:text-blue-700">Edit</button></td>
                             </tr>
                             <tr className="hover:bg-gray-50 transition-colors">
                                 <td className="py-4 px-4 font-semibold text-gray-900">Amit Kumar</td>
-                                <td className="py-4 px-4 text-gray-600"><span className="bg-gray-100 px-2 py-1 rounded text-xs font-medium border border-gray-200">Plumbing</span></td>
-                                <td className="py-4 px-4 text-gray-500 font-medium">11 Mar 2026</td>
-                                <td className="py-4 px-4 text-right"><span className="px-3 py-1 bg-yellow-50 text-yellow-600 border border-yellow-200 rounded-full text-xs font-bold uppercase tracking-wide">Pending</span></td>
+                                <td className="py-4 px-4 text-gray-600">9876543211</td>
+                                <td className="py-4 px-4 text-gray-600">Plumbing</td>
+                                <td className="py-4 px-4"><span className="px-3 py-1 bg-yellow-50 text-yellow-600 border border-yellow-200 rounded-full text-xs font-bold uppercase tracking-wide">Pending</span></td>
+                                <td className="py-4 px-4"><button className="text-blue-500 hover:text-blue-700">Edit</button></td>
                             </tr>
                         </tbody>
                     </table>

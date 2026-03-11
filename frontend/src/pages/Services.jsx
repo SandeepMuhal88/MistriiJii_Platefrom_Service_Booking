@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SEOHead from '../components/SEOHead';
+import SEOHead from '../admin/components/SEOHead';
 import './Services.css';
 
 const servicesSchema = [

@@ -5,8 +5,8 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 // Public Components
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from './admin/components/Navbar';
+import Footer from './admin/components/Footer';
 
 // Public Pages
 import Home from './pages/Home';
