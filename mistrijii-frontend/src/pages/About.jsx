@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { sectionReveal, stagger, fadeUp } from "../animations/motion";
+import { sectionReveal, stagger, fadeUp } from "../animations/motion.js";
 import { SERVICES, STATS, TEAM } from "../constants/aboutData.js";
 
 /* ── Service Card ─────────────────────────────────────────── */

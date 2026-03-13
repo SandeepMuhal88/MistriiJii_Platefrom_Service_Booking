@@ -5,7 +5,7 @@ import './App.css';
 import MainLayout from "./layout/MainLayout";
 import AdminLayout from "./layout/AdminLayout";
 
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import About from "./pages/about";
 import Booking from "./pages/Booking";
 import Contact from "./pages/Contact";
