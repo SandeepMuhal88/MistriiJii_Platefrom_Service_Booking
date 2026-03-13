@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { BookingProvider } from "./context/BookingContext";
+import './App.css';
 
 import MainLayout from "./layout/MainLayout";
 import AdminLayout from "./layout/AdminLayout";

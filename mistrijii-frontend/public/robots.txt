@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Disallow indexing for routes that shouldn't be indexed directly, like confirmation pages
+Disallow: /booking/confirmation
+
+Sitemap: https://mistrijii.in/sitemap.xml

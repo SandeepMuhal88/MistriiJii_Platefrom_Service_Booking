@@ -1,0 +1,83 @@
+/* App.css - Custom utilities that supplement Tailwind v4 */
+
+/* ========================================
+   LAYOUT HELPERS
+   ======================================== */
+
+.navbar-height {
+    height: 72px;
+}
+
+.hero-min-height {
+    min-height: calc(100vh - 72px);
+}
+
+/* ========================================
+   SMOOTH TRANSITION HELPER
+   ======================================== */
+
+.transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   FOCUS RING (custom orange glow)
+   ======================================== */
+
+.focus-ring {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1), 0 0 0 5px rgba(249, 115, 22, 0.5);
+}
+
+.focus-ring:focus {
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1), 0 0 0 5px rgba(249, 115, 22, 0.5);
+}
+
+/* ========================================
+   DISABLED STATE
+   ======================================== */
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ========================================
+   OPACITY HELPERS
+   ======================================== */
+
+.opacity-surface {
+    opacity: 0.95;
+}
+
+.opacity-text {
+    opacity: 0.85;
+}
+
+.opacity-muted {
+    opacity: 0.6;
+}
+
+/* ========================================
+   ACCESSIBILITY - Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
