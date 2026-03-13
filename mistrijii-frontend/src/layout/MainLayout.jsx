@@ -1,12 +1,17 @@
-import Header from "../components/header/header";
-import Footer from "../components/footer/footer";
+import Header from "../components/header";
+import Footer from "../components/footer";
 import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
     return (
         <>
             <Header />
-            <Outlet />
+
+            {/* Page Content */}
+            <main className="pt-[72px]">
+                <Outlet />
+            </main>
+
             <Footer />
         </>
     );

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-// import SEOHead from "../context/SEOHead.jsx";
+import SEOHead from "../context/SEOHead.jsx";
 
 const Home = () => {
     return (
@@ -102,5 +102,4 @@ const Home = () => {
         </main>
     );
 };
-
 export default Home;
