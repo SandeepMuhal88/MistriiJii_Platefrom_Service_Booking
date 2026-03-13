@@ -6,32 +6,32 @@ import { stagger, fadeUp, sectionReveal, scaleIn, slideLeft, slideRight } from "
 
 /* ─── Static Data ─────────────────────────────────────────── */
 const SERVICES = [
-  { icon: "⚡", title: "Electrician",      desc: "Wiring, circuit breakers, fixtures & installations", color: "#f59e0b", bg: "rgba(245,158,11,0.08)" },
-  { icon: "❄️", title: "AC Service",       desc: "Deep cleaning, gas refill & compressor repair",       color: "#06b6d4", bg: "rgba(6,182,212,0.08)"  },
-  { icon: "🔧", title: "Plumber",          desc: "Pipe leaks, blockage & all plumbing solutions",       color: "#a78bfa", bg: "rgba(167,139,250,0.08)" },
-  { icon: "🚗", title: "Vehicle Service",  desc: "Doorstep car & bike maintenance & repair",            color: "#10b981", bg: "rgba(16,185,129,0.08)"  },
-  { icon: "📺", title: "Appliance Repair", desc: "Washing machine, fridge, microwave & more",           color: "#fb923c", bg: "rgba(251,146,60,0.08)"  },
-  { icon: "🏠", title: "Deep Cleaning",    desc: "Full home, kitchen & bathroom deep clean",            color: "#818cf8", bg: "rgba(129,140,248,0.08)" },
+  { icon: "⚡", title: "Electrician", desc: "Wiring, circuit breakers, fixtures & installations", color: "#f59e0b", bg: "rgba(245,158,11,0.08)" },
+  { icon: "❄️", title: "AC Service", desc: "Deep cleaning, gas refill & compressor repair", color: "#06b6d4", bg: "rgba(6,182,212,0.08)" },
+  { icon: "🔧", title: "Plumber", desc: "Pipe leaks, blockage & all plumbing solutions", color: "#a78bfa", bg: "rgba(167,139,250,0.08)" },
+  { icon: "🚗", title: "Vehicle Service", desc: "Doorstep car & bike maintenance & repair", color: "#10b981", bg: "rgba(16,185,129,0.08)" },
+  { icon: "📺", title: "Appliance Repair", desc: "Washing machine, fridge, microwave & more", color: "#fb923c", bg: "rgba(251,146,60,0.08)" },
+  { icon: "🏠", title: "Deep Cleaning", desc: "Full home, kitchen & bathroom deep clean", color: "#818cf8", bg: "rgba(129,140,248,0.08)" },
 ];
 
 const STATS = [
-  { value: "10K+",  label: "Happy Customers",   icon: "👥" },
-  { value: "500+",  label: "Verified Experts",  icon: "🛡️" },
-  { value: "20+",   label: "Cities Covered",    icon: "📍" },
-  { value: "4.9★",  label: "Average Rating",    icon: "⭐" },
+  { value: "10K+", label: "Happy Customers", icon: "👥" },
+  { value: "500+", label: "Verified Experts", icon: "🛡️" },
+  { value: "20+", label: "Cities Covered", icon: "📍" },
+  { value: "4.9★", label: "Average Rating", icon: "⭐" },
 ];
 
 const STEPS = [
-  { step: "01", icon: "📱", title: "Choose a Service",    desc: "Browse 20+ expert services and select what you need." },
-  { step: "02", icon: "📅", title: "Schedule Instantly",  desc: "Pick your preferred date, time and location." },
+  { step: "01", icon: "📱", title: "Choose a Service", desc: "Browse 20+ expert services and select what you need." },
+  { step: "02", icon: "📅", title: "Schedule Instantly", desc: "Pick your preferred date, time and location." },
   { step: "03", icon: "🏠", title: "Expert at Your Door", desc: "Your verified professional arrives right on time." },
 ];
 
 const REVIEWS = [
-  { name: "Ravi Sharma",  city: "Jaipur",  stars: 5, text: "Electrician arrived in 40 mins. Fixed the entire wiring issue and explained everything. Absolutely professional!" },
-  { name: "Priya Gupta",  city: "Delhi",   stars: 5, text: "AC was not cooling for weeks. The technician diagnosed and fixed it in under an hour. Great service at fair price." },
-  { name: "Amit Verma",   city: "Mumbai",  stars: 5, text: "Booked a plumber at 8 PM — he arrived by 9 PM and resolved the pipe leak completely. Highly recommended!" },
-  { name: "Sunita Rao",   city: "Pune",    stars: 5, text: "Deep cleaning was absolutely top-notch. Every corner was spotless. Will book again next month!" },
+  { name: "Ravi Sharma", city: "Jaipur", stars: 5, text: "Electrician arrived in 40 mins. Fixed the entire wiring issue and explained everything. Absolutely professional!" },
+  { name: "Priya Gupta", city: "Delhi", stars: 5, text: "AC was not cooling for weeks. The technician diagnosed and fixed it in under an hour. Great service at fair price." },
+  { name: "Amit Verma", city: "Mumbai", stars: 5, text: "Booked a plumber at 8 PM — he arrived by 9 PM and resolved the pipe leak completely. Highly recommended!" },
+  { name: "Sunita Rao", city: "Pune", stars: 5, text: "Deep cleaning was absolutely top-notch. Every corner was spotless. Will book again next month!" },
 ];
 
 const BRANDS = ["⚡ Verified Experts", "🕐 Same-Day Booking", "🛡️ Service Guarantee", "💰 Transparent Pricing", "📍 20+ Cities", "⭐ 4.9 Rating"];
@@ -100,7 +100,7 @@ const StarRow = ({ n }) => (
 const Home = () => {
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroY    = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpac = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   const [activeReview, setActiveReview] = useState(0);
@@ -232,48 +232,21 @@ const Home = () => {
             </motion.div>
           </motion.div>
 
-          {/* ── Floating Activity Cards ── */}
+          {/* Scroll indicator */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.4, duration: 0.6 }}
-            className="absolute left-6 bottom-24 hidden xl:flex card items-center gap-3 px-4 py-3 shadow-xl"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2, duration: 0.5 }}
           >
-            <div className="w-8 h-8 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center text-sm">✓</div>
-            <div>
-              <p className="text-xs font-bold" style={{ color: "var(--text-1)" }}>Ravi booked Electrician</p>
-              <p className="text-xs" style={{ color: "var(--text-3)" }}>3 min ago · Jaipur</p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.7, duration: 0.6 }}
-            className="absolute right-6 bottom-24 hidden xl:flex card items-center gap-3 px-4 py-3 shadow-xl"
-          >
-            <span className="text-2xl">⭐</span>
-            <div>
-              <p className="text-xs font-bold" style={{ color: "var(--text-1)" }}>4.9 / 5.0 Rating</p>
-              <p className="text-xs" style={{ color: "var(--text-3)" }}>10,000+ verified reviews</p>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.5 }}
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-5 h-8 border-2 rounded-full flex items-start justify-center pt-1.5"
-            style={{ borderColor: "var(--text-4)" }}
-          >
-            <div className="w-1 h-2 rounded-full" style={{ background: "var(--orange)" }} />
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-5 h-8 border-2 rounded-full flex items-start justify-center pt-1.5"
+              style={{ borderColor: "var(--text-4)" }}
+            >
+              <div className="w-1 h-2 rounded-full" style={{ background: "var(--orange)" }} />
+            </motion.div>
           </motion.div>
         </motion.div>
       </section>
@@ -319,7 +292,7 @@ const Home = () => {
               whileHover={{ y: -4 }}
               className="card p-8 text-center"
             >
-              <div className="text-3xl mb-3">{s.icon}</div>
+              <div className="text-3xl mb-3" style={{ color: "var(--text-1)" }}>{s.icon}</div>
               <div className="text-3xl md:text-4xl font-black text-gradient mb-1">{s.value}</div>
               <div className="text-sm font-medium" style={{ color: "var(--text-3)" }}>{s.label}</div>
             </motion.div>
@@ -342,7 +315,7 @@ const Home = () => {
           {/* Section header */}
           <motion.div variants={stagger} className="flex flex-col items-center text-center gap-5 mb-16">
             <motion.div variants={fadeUp}><Badge>Our Services</Badge></motion.div>
-            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight">
+            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight" style={{ color: "var(--text-1)" }}>
               Everything Your Home{" "}
               <span className="text-gradient">Needs</span>
             </motion.h2>
@@ -383,7 +356,7 @@ const Home = () => {
 
       {/* ══════════════════════════════════════════════════════
           HOW IT WORKS
-      ══════════════════════════════════════════════════════ */}
+      ══════════════════════════════════════════════════════════ */}
       <motion.section
         variants={sectionReveal}
         initial="hidden"
@@ -394,7 +367,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto">
           <motion.div variants={stagger} className="flex flex-col items-center text-center gap-5 mb-20">
             <motion.div variants={fadeUp}><Badge>How It Works</Badge></motion.div>
-            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight">
+            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight" style={{ color: "var(--text-1)" }}>
               3 Steps.{" "}
               <span className="text-gradient">Done.</span>
             </motion.h2>
@@ -436,7 +409,7 @@ const Home = () => {
 
       {/* ══════════════════════════════════════════════════════
           SPLIT FEATURE SECTION
-      ══════════════════════════════════════════════════════ */}
+      ══════════════════════════════════════════════════════════ */}
       <motion.section
         variants={sectionReveal}
         initial="hidden"
@@ -449,7 +422,7 @@ const Home = () => {
           {/* Left */}
           <motion.div variants={slideLeft} className="flex flex-col gap-7">
             <Badge>Why MistriJii?</Badge>
-            <h2 className="text-4xl md:text-5xl font-black leading-tight">
+            <h2 className="text-4xl md:text-5xl font-black leading-tight" style={{ color: "var(--text-1)" }}>
               Professional Quality.{" "}
               <span className="text-gradient">Guaranteed.</span>
             </h2>
@@ -461,10 +434,10 @@ const Home = () => {
 
             <div className="flex flex-col gap-4">
               {[
-                { icon: "🛡️", title: "Background Verified",     desc: "Every expert is ID-verified and police-checked." },
-                { icon: "⭐", title: "Rating System",            desc: "Transparent reviews after every job." },
-                { icon: "💰", title: "Zero Hidden Charges",      desc: "Pay what you see — no surprise fees." },
-                { icon: "🔁", title: "Free Re-service",         desc: "Not satisfied? We fix it free." },
+                { icon: "🛡️", title: "Background Verified", desc: "Every expert is ID-verified and police-checked." },
+                { icon: "⭐", title: "Rating System", desc: "Transparent reviews after every job." },
+                { icon: "💰", title: "Zero Hidden Charges", desc: "Pay what you see — no surprise fees." },
+                { icon: "🔁", title: "Free Re-service", desc: "Not satisfied? We fix it free." },
               ].map((f, i) => (
                 <motion.div
                   key={i}
@@ -552,7 +525,7 @@ const Home = () => {
 
       {/* ══════════════════════════════════════════════════════
           TESTIMONIALS
-      ══════════════════════════════════════════════════════ */}
+      ══════════════════════════════════════════════════════════ */}
       <motion.section
         variants={sectionReveal}
         initial="hidden"
@@ -563,7 +536,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto">
           <motion.div variants={stagger} className="flex flex-col items-center text-center gap-5 mb-16">
             <motion.div variants={fadeUp}><Badge>Testimonials</Badge></motion.div>
-            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-black">
+            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-black" style={{ color: "var(--text-1)" }}>
               Loved by{" "}
               <span className="text-gradient">Real Customers</span>
             </motion.h2>
