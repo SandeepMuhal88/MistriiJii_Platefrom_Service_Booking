@@ -86,8 +86,45 @@ const Header = () => {
         <div className="max-w-7xl mx-auto px-6 h-[72px] flex items-center gap-6">
 
           {/* Logo */}
-          <Link to="/" className="shrink-0 mr-2">
-            <img src={logo} alt="MistriJii" className="h-10 w-auto" />
+          <Link to="/" className="shrink-0 mr-4 flex items-center gap-3 group">
+            <motion.div
+              whileHover={{ scale: 1.05, rotate: -2 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              className="relative"
+            >
+              <div
+                className="absolute inset-0 rounded-xl blur-md opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+                style={{ background: "linear-gradient(135deg, #f97316, #fb923c)" }}
+              />
+              <img
+                src={logo}
+                alt="MistriJii"
+                className="relative h-12 w-12 object-contain rounded-xl"
+                style={{
+                  filter: "drop-shadow(0 2px 8px rgba(249,115,22,0.35))",
+                }}
+              />
+            </motion.div>
+            <div className="hidden sm:flex flex-col leading-none">
+              <span
+                className="text-xl font-extrabold tracking-tight"
+                style={{
+                  background: "linear-gradient(135deg, #f97316 0%, #fb923c 50%, #ea580c 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  letterSpacing: "-0.5px",
+                }}
+              >
+                MistriJii
+              </span>
+              <span
+                className="text-[10px] font-semibold uppercase tracking-[0.18em] mt-0.5"
+                style={{ color: "var(--text-4)" }}
+              >
+                Service On Demand
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
@@ -226,7 +263,30 @@ const Header = () => {
               style={{ background: "var(--bg-card)", borderLeft: "1px solid var(--bg-border)" }}
             >
               <div className="flex items-center justify-between mb-8">
-                <img src={logo} alt="MistriJii" className="h-8" />
+                <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
+                  <img
+                    src={logo}
+                    alt="MistriJii"
+                    className="h-11 w-11 object-contain rounded-xl"
+                    style={{ filter: "drop-shadow(0 2px 8px rgba(249,115,22,0.4))" }}
+                  />
+                  <div className="flex flex-col leading-none">
+                    <span
+                      className="text-lg font-extrabold tracking-tight"
+                      style={{
+                        background: "linear-gradient(135deg, #f97316, #ea580c)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }}
+                    >
+                      MistriJii
+                    </span>
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.15em] mt-0.5" style={{ color: "var(--text-4)" }}>
+                      Service On Demand
+                    </span>
+                  </div>
+                </Link>
                 <button
                   onClick={() => setOpen(false)}
                   className="w-9 h-9 rounded-xl flex items-center justify-center text-sm transition"
