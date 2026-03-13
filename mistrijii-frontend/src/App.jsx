@@ -5,11 +5,11 @@ import './App.css';
 import MainLayout from "./layout/MainLayout";
 import AdminLayout from "./layout/AdminLayout";
 
-import Home from "./pages/Home";
-import About from "./pages/about";
-import Booking from "./pages/Booking";
-import Contact from "./pages/Contact";
-import Dashboard from "./admin/Dashboard";
+import Home from "./pages/Home.jsx";
+import About from "./pages/about.jsx";
+import Booking from "./pages/Booking.jsx";
+import Contact from "./pages/Contact.jsx";
+import Dashboard from "./admin/Dashboard.jsx";
 
 function App() {
   return (
