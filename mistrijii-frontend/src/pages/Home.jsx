@@ -169,10 +169,10 @@ const Home = () => {
               variants={fadeUp}
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[1.05] tracking-tight"
             >
-              Your Home.{" "}
+              Ghar Bete Bulao .{" "}
               <br className="hidden sm:block" />
               <span className="relative inline-block">
-                <span className="text-gradient">Fixed Fast.</span>
+                <span className="text-gradient">Expert Technicians.</span>
                 <motion.svg
                   viewBox="0 0 300 12"
                   className="absolute -bottom-3 left-0 w-full"
@@ -204,7 +204,7 @@ const Home = () => {
               style={{ color: "var(--text-2)" }}
             >
               Book verified electricians, AC technicians, plumbers, mechanics &amp; more — at your doorstep in{" "}
-              <span className="font-bold" style={{ color: "var(--orange)" }}>under 45 minutes</span>.
+              <span className="font-bold" style={{ color: "var(--orange)" }}>under 24 Hours</span>.
             </motion.p>
 
             {/* CTA Buttons */}
