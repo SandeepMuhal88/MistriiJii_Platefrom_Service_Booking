@@ -1,9 +1,9 @@
 import { useState } from "react";
-import SEOHead from "../context/SEOHead.jsx";
+import SEOHead from "../../../context/SEOHead.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBookings } from "../context/BookingContext";
 import { useNavigate } from "react-router-dom";
-import { sectionReveal, stagger, fadeUp, scaleIn } from "../animations/motion";
+import { sectionReveal, stagger, fadeUp, scaleIn } from "../../../animations/motion.js";
 
 const SERVICES = [
   { id: "electrician", name: "Electrician",     icon: "⚡", desc: "Wiring, fixtures, repairs",          color: "#f59e0b" },
