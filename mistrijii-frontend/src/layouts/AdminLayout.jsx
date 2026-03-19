@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../features/auth/context/AuthContext';
 
 const AdminLayout = () => {
+    const { logout } = useAuth();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const location = useLocation();
 
@@ -55,11 +57,15 @@ const AdminLayout = () => {
                     ))}
                 </nav>
 
-                <div className="absolute bottom-0 p-4 w-full border-t border-gray-800">
+                <div className="absolute bottom-0 p-4 w-full border-t border-gray-800 space-y-2">
                     <Link to="/" className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white rounded-xl hover:bg-gray-800 transition">
-                        <span>🚪</span>
+                        <span>🏡</span>
                         <span className="font-medium">Back to Website</span>
                     </Link>
+                    <button onClick={logout} className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-white rounded-xl hover:bg-red-500/20 transition cursor-pointer border-none bg-transparent">
+                        <span>🚪</span>
+                        <span className="font-medium">Logout</span>
+                    </button>
                 </div>
             </aside>
 
