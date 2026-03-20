@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SEOHead from "../../../context/SEOHead.jsx";
+import SEOHead from "../../../shared/components/SEOHead.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBookings } from "../context/BookingContext";
 import { useNavigate } from "react-router-dom";

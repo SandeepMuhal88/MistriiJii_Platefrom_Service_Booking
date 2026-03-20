@@ -1,8 +1,8 @@
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../../theme/ThemeContext";
 
 const SERVICES_MENU = [
   { icon: "⚡", label: "Electrician",     sub: "Wiring & repairs" },

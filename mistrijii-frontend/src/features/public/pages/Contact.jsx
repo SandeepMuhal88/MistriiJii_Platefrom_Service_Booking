@@ -1,7 +1,7 @@
 import { useState } from "react";
-import SEOHead from "../context/SEOHead.jsx";
+import SEOHead from "../../../shared/components/SEOHead.jsx";
 import { motion } from "framer-motion";
-import { sectionReveal, stagger, fadeUp, slideLeft, slideRight } from "../animations/motion";
+import { sectionReveal, stagger, fadeUp, slideLeft, slideRight } from "../../../animations/motion";
 
 const CONTACT_INFO = [
   { icon: "📍", title: "Headquarters",    lines: ["Rajasthan, India"] },

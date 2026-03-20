@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
-import SEOHead from "../context/SEOHead.jsx";
-import { stagger, fadeUp, sectionReveal, scaleIn, slideLeft, slideRight } from "../animations/motion";
+import SEOHead from "../../../shared/components/SEOHead.jsx";
+import { stagger, fadeUp, sectionReveal, scaleIn, slideLeft, slideRight } from "../../../animations/motion";
 
 /* ─── Static Data ─────────────────────────────────────────── */
 const SERVICES = [

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useBookings } from '../../context/BookingContext';
+import { useBookings } from '../../booking/context/BookingContext';
 
 const Dashboard = () => {
     const { bookings, updateBookingStatus } = useBookings();

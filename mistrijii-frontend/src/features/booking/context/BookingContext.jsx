@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
-import { useAuth } from '../auth/context/AuthContext';
+import { useAuth } from '../../auth/context/AuthContext';
 
 const BookingContext = createContext();
 
