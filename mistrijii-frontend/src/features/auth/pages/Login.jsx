@@ -4,187 +4,610 @@ import { useAuth } from "../context/AuthContext";
 import SEOHead from "../../../shared/components/SEOHead.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
+/* ── Reusable input style ─────────────────────────────────── */
+const inputStyle = {
+  width: "100%",
+  padding: "0.875rem 1rem",
+  borderRadius: "0.875rem",
+  background: "var(--bg-elevated)",
+  border: "1px solid var(--bg-border)",
+  color: "var(--text-1)",
+  fontSize: "0.9rem",
+  outline: "none",
+  transition: "border-color 0.2s, box-shadow 0.2s",
+};
+
+const Label = ({ children }) => (
+  <label
+    style={{
+      display: "block",
+      fontSize: "0.7rem",
+      fontWeight: 700,
+      color: "var(--text-3)",
+      textTransform: "uppercase",
+      letterSpacing: "0.08em",
+      marginBottom: "0.5rem",
+    }}
+  >
+    {children}
+  </label>
+);
+
 export default function Login() {
   const { login } = useAuth();
-  const [tab, setTab] = useState("login");
-  const [form, setForm] = useState({ name: "", phone: "", email: "", password: "" });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  // "email" | "phone"
+  const [authMethod, setAuthMethod] = useState("email");
+  // "login" | "register" — for email auth
+  const [tab, setTab] = useState("login");
 
-  const handleSubmit = async (e) => {
+  const [form, setForm] = useState({
+    name: "", phone: "", email: "", password: "",
+  });
+  const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpDemo, setOtpDemo] = useState(""); // shows OTP in demo mode
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ text: "", type: "" }); // type: "error"|"success"
+
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  const msg = (text, type = "error") => setMessage({ text, type });
+
+  const focusProps = {
+    onFocus: (e) => {
+      e.target.style.borderColor = "#f97316";
+      e.target.style.boxShadow = "0 0 0 3px rgba(249,115,22,0.15)";
+    },
+    onBlur: (e) => {
+      e.target.style.borderColor = "var(--bg-border)";
+      e.target.style.boxShadow = "none";
+    },
+  };
+
+  /* ── Email Auth ─────────────────────────────────────────── */
+  const handleEmailSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-
+    msg("", "");
     try {
       if (tab === "login") {
-        const res = await fetch("http://localhost:8000/auth/login", {
+        const res = await fetch(`${API}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: form.email, password: form.password }),
         });
-        if (!res.ok) throw new Error("Invalid Credentials");
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || "Invalid credentials");
+        }
         const data = await res.json();
         login(data.access_token);
         navigate("/admin");
       } else {
-        const res = await fetch("http://localhost:8000/auth/register", {
+        const res = await fetch(`${API}/auth/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(form),
         });
-        if (!res.ok) throw new Error("Registration Failed. Email might be already used.");
-        
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || "Registration failed");
+        }
+        msg("Account created! Please log in.", "success");
         setTab("login");
-        setError("Registration successful! Please log in.");
       }
     } catch (err) {
-      setError(err.message || "An error occurred");
+      msg(err.message || "An error occurred.");
     } finally {
       setLoading(false);
     }
   };
 
-  const inputCls = "w-full px-4 py-3.5 rounded-xl bg-zinc-800/50 border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition text-sm";
-  const labelCls = "block text-xs font-bold text-zinc-400 uppercase tracking-widest mb-2 px-1";
+  /* ── Phone OTP — Send ───────────────────────────────────── */
+  const handleSendOtp = async (e) => {
+    e.preventDefault();
+    if (!form.phone.trim()) return msg("Please enter your phone number.");
+    setLoading(true);
+    msg("", "");
+    try {
+      const res = await fetch(`${API}/auth/phone/send-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: form.phone }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || "Failed to send OTP");
+      }
+      const data = await res.json();
+      setOtpSent(true);
+      if (data.otp_demo) {
+        setOtpDemo(data.otp_demo); // demo mode only
+        msg(`Demo OTP: ${data.otp_demo}`, "success");
+      } else {
+        msg("OTP sent to your phone!", "success");
+      }
+    } catch (err) {
+      msg(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const formVariants = {
-    hidden: { opacity: 0, x: tab === 'login' ? -20 : 20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
-    exit: { opacity: 0, x: tab === 'login' ? 20 : -20, transition: { duration: 0.3 } }
+  /* ── Phone OTP — Verify ─────────────────────────────────── */
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    if (!otp.trim()) return msg("Please enter the OTP.");
+    setLoading(true);
+    msg("", "");
+    try {
+      const res = await fetch(`${API}/auth/phone/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: form.phone, otp }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || "Invalid or expired OTP");
+      }
+      const data = await res.json();
+      login(data.access_token);
+      navigate("/admin");
+    } catch (err) {
+      msg(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center relative overflow-hidden p-4">
-      <SEOHead title={tab === 'login' ? 'Login - MistriJii' : 'Register - MistriJii'} />
-      
-      {/* Background Orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-violet-600/10 blur-[120px] rounded-full pointer-events-none" />
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "var(--bg-base)",
+        color: "var(--text-1)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1.5rem",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <SEOHead
+        title={
+          authMethod === "phone"
+            ? "Phone Login — MistriJii"
+            : tab === "login"
+            ? "Admin Login — MistriJii"
+            : "Register — MistriJii"
+        }
+      />
 
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+      {/* Ambient orbs */}
+      <div
+        style={{
+          position: "absolute",
+          top: "5%",
+          left: "20%",
+          width: "28rem",
+          height: "28rem",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(249,115,22,0.12), transparent 70%)",
+          filter: "blur(60px)",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "5%",
+          right: "15%",
+          width: "24rem",
+          height: "24rem",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(124,58,237,0.1), transparent 70%)",
+          filter: "blur(60px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md relative z-10"
+        transition={{ duration: 0.45 }}
+        style={{ width: "100%", maxWidth: "26rem", position: "relative", zIndex: 10 }}
       >
-        <div className="bg-zinc-900 border border-white/5 rounded-3xl p-8 shadow-2xl relative overflow-hidden backdrop-blur-xl">
-          {/* Subtle gradient border highlight at the top */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-yellow-400" />
-          
-          <div className="text-center mb-8 pt-2">
-            <h2 className="text-3xl font-black tracking-tight mb-2">
-              <span className="bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
+        {/* Card */}
+        <div
+          style={{
+            background: "var(--bg-card)",
+            border: "1px solid var(--bg-border)",
+            borderRadius: "1.75rem",
+            padding: "2.25rem",
+            position: "relative",
+            overflow: "hidden",
+            boxShadow: "0 25px 50px rgba(0,0,0,0.35)",
+          }}
+        >
+          {/* Top gradient line */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "3px",
+              background: "linear-gradient(90deg, #f97316, #fbbf24)",
+            }}
+          />
+
+          {/* Brand */}
+          <div style={{ textAlign: "center", marginBottom: "1.75rem", paddingTop: "0.5rem" }}>
+            <h1
+              style={{
+                fontSize: "1.75rem",
+                fontWeight: 900,
+                marginBottom: "0.35rem",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #f97316, #fbbf24)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
                 MistriJii
-              </span> Portal
-            </h2>
-            <p className="text-zinc-500 text-sm">Access your service dashboard</p>
+              </span>{" "}
+              Portal
+            </h1>
+            <p style={{ color: "var(--text-3)", fontSize: "0.875rem" }}>
+              Access your admin dashboard securely
+            </p>
           </div>
 
-          {/* Toggle */}
-          <div className="flex bg-zinc-950/50 rounded-xl p-1 mb-8 border border-white/5">
-            <button
-              type="button"
-              onClick={() => { setTab("login"); setError(""); }}
-              className={`flex-1 py-2.5 rounded-lg text-sm font-bold transition-all ${
-                tab === "login" 
-                  ? "bg-zinc-800 text-white shadow-lg" 
-                  : "text-zinc-500 hover:text-zinc-300"
-              }`}
-            >
-              Log In
-            </button>
-            <button
-              type="button"
-              onClick={() => { setTab("register"); setError(""); }}
-              className={`flex-1 py-2.5 rounded-lg text-sm font-bold transition-all ${
-                tab === "register" 
-                  ? "bg-zinc-800 text-white shadow-lg" 
-                  : "text-zinc-500 hover:text-zinc-300"
-              }`}
-            >
-              Sign Up
-            </button>
+          {/* Auth Method Toggle */}
+          <div
+            style={{
+              display: "flex",
+              background: "var(--bg-elevated)",
+              borderRadius: "0.875rem",
+              padding: "4px",
+              marginBottom: "1.5rem",
+              border: "1px solid var(--bg-border)",
+            }}
+          >
+            {[
+              { id: "email", label: "📧 Email" },
+              { id: "phone", label: "📱 Phone OTP" },
+            ].map(({ id, label }) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => {
+                  setAuthMethod(id);
+                  msg("", "");
+                  setOtpSent(false);
+                  setOtpDemo("");
+                  setOtp("");
+                }}
+                style={{
+                  flex: 1,
+                  padding: "0.625rem",
+                  borderRadius: "0.625rem",
+                  fontSize: "0.875rem",
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  background: authMethod === id ? "var(--bg-card)" : "transparent",
+                  color: authMethod === id ? "var(--text-1)" : "var(--text-3)",
+                  boxShadow: authMethod === id ? "0 1px 4px rgba(0,0,0,0.2)" : "none",
+                }}
+              >
+                {label}
+              </button>
+            ))}
           </div>
 
-          <form onSubmit={handleSubmit} className="relative">
-            <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait">
+            {/* ── EMAIL AUTH ── */}
+            {authMethod === "email" && (
               <motion.div
-                key={tab}
-                variants={formVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="space-y-4"
+                key="email-auth"
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 12 }}
+                transition={{ duration: 0.25 }}
               >
-                {tab === "register" && (
-                  <>
-                    <div>
-                      <label className={labelCls}>Full Name</label>
-                      <input required className={inputCls} placeholder="John Doe" 
-                        value={form.name} onChange={(e) => set("name", e.target.value)} />
-                    </div>
-                    <div>
-                      <label className={labelCls}>Phone Number</label>
-                      <input required type="tel" className={inputCls} placeholder="+91 98765 43210" 
-                        value={form.phone} onChange={(e) => set("phone", e.target.value)} />
-                    </div>
-                  </>
-                )}
-
-                <div>
-                  <label className={labelCls}>Email Address</label>
-                  <input required type="email" className={inputCls} placeholder="you@example.com" 
-                    value={form.email} onChange={(e) => set("email", e.target.value)} />
+                {/* Login / Register sub-tabs */}
+                <div
+                  style={{
+                    display: "flex",
+                    background: "var(--bg-elevated)",
+                    borderRadius: "0.75rem",
+                    padding: "3px",
+                    marginBottom: "1.5rem",
+                    border: "1px solid var(--bg-border)",
+                    gap: "2px",
+                  }}
+                >
+                  {[
+                    { id: "login", label: "Log In" },
+                    { id: "register", label: "Sign Up" },
+                  ].map(({ id, label }) => (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => { setTab(id); msg("", ""); }}
+                      style={{
+                        flex: 1,
+                        padding: "0.5rem",
+                        borderRadius: "0.625rem",
+                        fontSize: "0.875rem",
+                        fontWeight: 700,
+                        border: "none",
+                        cursor: "pointer",
+                        transition: "all 0.2s",
+                        background: tab === id ? "var(--bg-card)" : "transparent",
+                        color: tab === id ? "var(--text-1)" : "var(--text-3)",
+                      }}
+                    >
+                      {label}
+                    </button>
+                  ))}
                 </div>
 
-                <div>
-                  <label className={labelCls}>Password</label>
-                  <input required type="password" className={inputCls} placeholder="••••••••" 
-                    value={form.password} onChange={(e) => set("password", e.target.value)} />
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                <form onSubmit={handleEmailSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={tab}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.2 }}
+                      style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+                    >
+                      {tab === "register" && (
+                        <>
+                          <div>
+                            <Label>Full Name</Label>
+                            <input
+                              required
+                              style={inputStyle}
+                              placeholder="Sandeep Muhal"
+                              value={form.name}
+                              onChange={(e) => set("name", e.target.value)}
+                              {...focusProps}
+                            />
+                          </div>
+                          <div>
+                            <Label>Phone Number</Label>
+                            <input
+                              required
+                              type="tel"
+                              style={inputStyle}
+                              placeholder="+91 98765 43210"
+                              value={form.phone}
+                              onChange={(e) => set("phone", e.target.value)}
+                              {...focusProps}
+                            />
+                          </div>
+                        </>
+                      )}
 
-            {error && (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className={`mt-6 p-4 rounded-xl text-sm font-medium border text-center ${
-                  error.includes('successful') 
-                    ? 'bg-green-500/10 text-green-400 border-green-500/20' 
-                    : 'bg-red-500/10 text-red-400 border-red-500/20'
-                }`}
-              >
-                {error}
+                      <div>
+                        <Label>Email Address</Label>
+                        <input
+                          required
+                          type="email"
+                          style={inputStyle}
+                          placeholder="admin@mistrijii.in"
+                          value={form.email}
+                          onChange={(e) => set("email", e.target.value)}
+                          {...focusProps}
+                        />
+                      </div>
+
+                      <div>
+                        <Label>Password</Label>
+                        <input
+                          required
+                          type="password"
+                          style={inputStyle}
+                          placeholder="••••••••"
+                          value={form.password}
+                          onChange={(e) => set("password", e.target.value)}
+                          {...focusProps}
+                        />
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {message.text && <MessageBox message={message} />}
+
+                  <SubmitBtn loading={loading} label={tab === "login" ? "Sign In →" : "Create Account →"} />
+                </form>
               </motion.div>
             )}
 
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              disabled={loading}
-              type="submit"
-              className="w-full mt-6 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-black rounded-xl shadow-lg shadow-orange-500/20 hover:from-orange-400 hover:to-orange-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <div className="flex items-center justify-center gap-2">
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Processing...</span>
-                </div>
-              ) : (
-                tab === "login" ? "Sign In →" : "Create Account →"
-              )}
-            </motion.button>
-          </form>
+            {/* ── PHONE OTP AUTH ── */}
+            {authMethod === "phone" && (
+              <motion.div
+                key="phone-auth"
+                initial={{ opacity: 0, x: 12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -12 }}
+                transition={{ duration: 0.25 }}
+                style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+              >
+                {!otpSent ? (
+                  <form onSubmit={handleSendOtp} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    <div>
+                      <Label>Mobile Number</Label>
+                      <input
+                        required
+                        type="tel"
+                        style={inputStyle}
+                        placeholder="+91 98765 43210"
+                        value={form.phone}
+                        onChange={(e) => set("phone", e.target.value)}
+                        {...focusProps}
+                      />
+                    </div>
+                    <p style={{ fontSize: "0.8rem", color: "var(--text-3)" }}>
+                      We'll send a 6-digit OTP to verify your number.
+                    </p>
+
+                    {message.text && <MessageBox message={message} />}
+
+                    <SubmitBtn loading={loading} label="Send OTP →" />
+                  </form>
+                ) : (
+                  <form onSubmit={handleVerifyOtp} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    <div
+                      style={{
+                        padding: "0.75rem",
+                        borderRadius: "0.75rem",
+                        background: "rgba(249,115,22,0.08)",
+                        border: "1px solid rgba(249,115,22,0.2)",
+                        fontSize: "0.875rem",
+                        color: "var(--text-2)",
+                        textAlign: "center",
+                      }}
+                    >
+                      OTP sent to{" "}
+                      <strong style={{ color: "#fb923c" }}>{form.phone}</strong>
+                    </div>
+
+                    <div>
+                      <Label>Enter 6-digit OTP</Label>
+                      <input
+                        required
+                        type="text"
+                        maxLength={6}
+                        style={{
+                          ...inputStyle,
+                          fontSize: "1.5rem",
+                          letterSpacing: "0.5rem",
+                          textAlign: "center",
+                          fontWeight: 700,
+                        }}
+                        placeholder="● ● ● ● ● ●"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+                        {...focusProps}
+                      />
+                    </div>
+
+                    {message.text && <MessageBox message={message} />}
+
+                    <SubmitBtn loading={loading} label="Verify & Login →" />
+
+                    <button
+                      type="button"
+                      onClick={() => { setOtpSent(false); setOtp(""); msg("", ""); }}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: "var(--text-3)",
+                        fontSize: "0.8rem",
+                        cursor: "pointer",
+                        textAlign: "center",
+                        marginTop: "-0.25rem",
+                      }}
+                    >
+                      ← Change number
+                    </button>
+                  </form>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-        
-        <p className="text-center text-zinc-600 mt-6 text-xs">
-          By continuing, you agree to our Terms of Service and Privacy Policy.
+
+        <p style={{ textAlign: "center", color: "var(--text-4)", marginTop: "1.25rem", fontSize: "0.75rem" }}>
+          By continuing, you agree to MistriJii's Terms of Service & Privacy Policy.
         </p>
       </motion.div>
     </div>
+  );
+}
+
+/* ── Helper Components ──────────────────────────────────── */
+
+function MessageBox({ message }) {
+  const isSuccess = message.type === "success";
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      style={{
+        padding: "0.75rem 1rem",
+        borderRadius: "0.75rem",
+        fontSize: "0.875rem",
+        fontWeight: 500,
+        textAlign: "center",
+        background: isSuccess ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)",
+        color: isSuccess ? "#4ade80" : "#f87171",
+        border: `1px solid ${isSuccess ? "rgba(34,197,94,0.25)" : "rgba(239,68,68,0.25)"}`,
+      }}
+    >
+      {isSuccess ? "✅" : "⚠️"} {message.text}
+    </motion.div>
+  );
+}
+
+function SubmitBtn({ loading, label }) {
+  return (
+    <motion.button
+      whileHover={{ scale: loading ? 1 : 1.02 }}
+      whileTap={{ scale: loading ? 1 : 0.98 }}
+      disabled={loading}
+      type="submit"
+      style={{
+        width: "100%",
+        padding: "0.9375rem",
+        background: "linear-gradient(135deg, #f97316, #ea580c)",
+        color: "#fff",
+        fontWeight: 800,
+        fontSize: "1rem",
+        borderRadius: "0.875rem",
+        border: "none",
+        cursor: loading ? "not-allowed" : "pointer",
+        opacity: loading ? 0.7 : 1,
+        boxShadow: "0 0 30px rgba(249,115,22,0.3)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "0.5rem",
+        transition: "opacity 0.2s",
+        marginTop: "0.25rem",
+      }}
+    >
+      {loading ? (
+        <>
+          <span
+            style={{
+              width: "1.1rem",
+              height: "1.1rem",
+              border: "2px solid rgba(255,255,255,0.3)",
+              borderTopColor: "#fff",
+              borderRadius: "50%",
+              display: "inline-block",
+              animation: "spin 0.7s linear infinite",
+            }}
+          />
+          Processing...
+        </>
+      ) : (
+        label
+      )}
+    </motion.button>
   );
 }

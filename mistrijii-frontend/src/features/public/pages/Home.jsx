@@ -6,13 +6,14 @@ import { stagger, fadeUp, sectionReveal, scaleIn, slideLeft, slideRight } from "
 
 /* ─── Static Data ─────────────────────────────────────────── */
 const SERVICES = [
-  { icon: "⚡", title: "Electrician", desc: "Wiring, circuit breakers, fixtures & installations", color: "#f59e0b", bg: "rgba(245,158,11,0.08)" },
-  { icon: "❄️", title: "AC Service", desc: "Deep cleaning, gas refill & compressor repair", color: "#06b6d4", bg: "rgba(6,182,212,0.08)" },
-  { icon: "🔧", title: "Plumber", desc: "Pipe leaks, blockage & all plumbing solutions", color: "#a78bfa", bg: "rgba(167,139,250,0.08)" },
-  { icon: "🚗", title: "Vehicle Service", desc: "Doorstep car & bike maintenance & repair", color: "#10b981", bg: "rgba(16,185,129,0.08)" },
-  { icon: "📺", title: "Appliance Repair", desc: "Washing machine, fridge, microwave & more", color: "#fb923c", bg: "rgba(251,146,60,0.08)" },
-  { icon: "🏠", title: "Deep Cleaning", desc: "Full home, kitchen & bathroom deep clean", color: "#818cf8", bg: "rgba(129,140,248,0.08)" },
+  { icon: "⚡", title: "Electrician",     desc: "Wiring, circuit breakers, fixtures & installations", color: "#f59e0b", bg: "rgba(245,158,11,0.08)",   price: "₹299 – ₹1,499" },
+  { icon: "❄️", title: "AC Service",      desc: "Deep cleaning, gas refill & compressor repair",       color: "#06b6d4", bg: "rgba(6,182,212,0.08)",    price: "₹399 – ₹2,999" },
+  { icon: "🔧", title: "Plumber",         desc: "Pipe leaks, blockage & all plumbing solutions",       color: "#a78bfa", bg: "rgba(167,139,250,0.08)",  price: "₹199 – ₹1,199" },
+  { icon: "🚗", title: "Mechanic",        desc: "Doorstep car & bike maintenance & repair",            color: "#10b981", bg: "rgba(16,185,129,0.08)",   price: "₹499 – ₹3,999" },
+  { icon: "📺", title: "Appliance Repair",desc: "Washing machine, fridge, microwave & more",          color: "#fb923c", bg: "rgba(251,146,60,0.08)",   price: "₹299 – ₹1,999" },
+  { icon: "🏠", title: "Deep Cleaning",   desc: "Full home, kitchen & bathroom deep clean",           color: "#818cf8", bg: "rgba(129,140,248,0.08)",  price: "₹799 – ₹4,999" },
 ];
+
 
 const STATS = [
   { value: "10K+", label: "Happy Customers", icon: "👥" },
@@ -55,7 +56,7 @@ const ServiceCard = ({ s, i }) => (
       style={{ background: `linear-gradient(135deg, ${s.color}60, transparent 60%)` }}
     />
     <div
-      className="relative rounded-[calc(1.5rem-1px)] p-7 h-full flex flex-col gap-5 card"
+      className="relative rounded-[calc(1.5rem-1px)] p-7 h-full flex flex-col gap-4 card"
     >
       {/* icon */}
       <div
@@ -66,8 +67,16 @@ const ServiceCard = ({ s, i }) => (
       </div>
 
       <div className="flex-1">
-        <h3 className="font-bold text-lg mb-2" style={{ color: "var(--text-1)" }}>{s.title}</h3>
-        <p className="text-sm leading-relaxed" style={{ color: "var(--text-2)" }}>{s.desc}</p>
+        <h3 className="font-bold text-lg mb-1" style={{ color: "var(--text-1)" }}>{s.title}</h3>
+        <p className="text-sm leading-relaxed mb-2" style={{ color: "var(--text-2)" }}>{s.desc}</p>
+        {s.price && (
+          <span
+            className="text-xs font-bold px-2 py-0.5 rounded-full"
+            style={{ background: `${s.color}18`, color: s.color, border: `1px solid ${s.color}30` }}
+          >
+            {s.price}
+          </span>
+        )}
       </div>
 
       <Link
@@ -87,6 +96,7 @@ const ServiceCard = ({ s, i }) => (
     </div>
   </motion.div>
 );
+
 
 const StarRow = ({ n }) => (
   <div className="flex gap-0.5">

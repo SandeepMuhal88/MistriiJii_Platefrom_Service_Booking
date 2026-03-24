@@ -1,110 +1,100 @@
-import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
-import { useAuth } from '../../auth/context/AuthContext';
+import React, { createContext, useState, useContext, useEffect, useCallback } from "react";
+import { useAuth } from "../../auth/context/AuthContext";
 
 const BookingContext = createContext();
 
 export const useBookings = () => useContext(BookingContext);
 
-const API_URL = "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export const BookingProvider = ({ children }) => {
-    const { user } = useAuth() || {};
-    const [bookings, setBookings] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const { getToken } = useAuth();
+  const [bookings, setBookings]   = useState([]);
+  const [loading, setLoading]     = useState(false);
+  const [stats, setStats]         = useState(null);
 
-    const fetchBookings = useCallback(async () => {
-        try {
-            const token = localStorage.getItem("token");
-            const headers = { "Content-Type": "application/json" };
-            if (token) headers["Authorization"] = `Bearer ${token}`;
+  const authHeaders = () => {
+    const token = getToken?.();
+    const h = { "Content-Type": "application/json" };
+    if (token) h["Authorization"] = `Bearer ${token}`;
+    return h;
+  };
 
-            // We still fetch even if not admin, but the backend will return 401 if not allowed
-            // The frontend won't crash, just logs an error.
-            if (!token) {
-                setLoading(false);
-                return;
-            }
+  /* ── Fetch all bookings (admin only) ───────────────────── */
+  const fetchBookings = useCallback(async () => {
+    const token = getToken?.();
+    if (!token) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_URL}/bookings`, { headers: authHeaders() });
+      if (res.ok) {
+        const data = await res.json();
+        setBookings(data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch bookings", err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-            const res = await fetch(`${API_URL}/bookings`, { headers });
-            if (res.ok) {
-                const data = await res.json();
-                setBookings(data.sort((a,b) => new Date(b.created_at) - new Date(a.created_at)));
-            }
-        } catch (error) {
-            console.error("Failed to fetch bookings", error);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+  /* ── Fetch stats ────────────────────────────────────────── */
+  const fetchStats = useCallback(async () => {
+    const token = getToken?.();
+    if (!token) return;
+    try {
+      const res = await fetch(`${API_URL}/bookings/stats`, { headers: authHeaders() });
+      if (res.ok) setStats(await res.json());
+    } catch (err) {
+      console.error("Failed to fetch stats", err);
+    }
+  }, []);
 
-    useEffect(() => {
-        fetchBookings();
-    }, [user, fetchBookings]);
+  /* ── Create booking (public) ────────────────────────────── */
+  const addBooking = async (bookingData) => {
+    const res = await fetch(`${API_URL}/bookings`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bookingData),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Failed to create booking");
+    }
+    const newBooking = await res.json();
+    setBookings((prev) => [newBooking, ...prev]);
+    return newBooking;
+  };
 
-    const addBooking = async (bookingData) => {
-        try {
-            const res = await fetch(`${API_URL}/bookings`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(bookingData)
-            });
-            if (res.ok) {
-                const newBooking = await res.json();
-                setBookings(prev => [newBooking, ...prev]);
-                return newBooking;
-            } else {
-                console.error("Failed to add booking");
-            }
-        } catch (error) {
-            console.error("Error adding booking", error);
-        }
-    };
+  /* ── Update status ──────────────────────────────────────── */
+  const updateBookingStatus = async (id, newStatus) => {
+    const res = await fetch(`${API_URL}/bookings/${id}`, {
+      method: "PUT",
+      headers: authHeaders(),
+      body: JSON.stringify({ status: newStatus }),
+    });
+    if (res.ok) {
+      const updated = await res.json();
+      setBookings((prev) => prev.map((b) => (b.id === id ? updated : b)));
+    }
+  };
 
-    const updateBookingStatus = async (id, newStatus) => {
-        try {
-            const token = localStorage.getItem("token");
-            const headers = { "Content-Type": "application/json" };
-            if (token) headers["Authorization"] = `Bearer ${token}`;
+  /* ── Delete booking ─────────────────────────────────────── */
+  const deleteBooking = async (id) => {
+    const res = await fetch(`${API_URL}/bookings/${id}`, {
+      method: "DELETE",
+      headers: authHeaders(),
+    });
+    if (res.ok) {
+      setBookings((prev) => prev.filter((b) => b.id !== id));
+    }
+  };
 
-            const res = await fetch(`${API_URL}/bookings/${id}`, {
-                method: "PUT",
-                headers,
-                body: JSON.stringify({ status: newStatus })
-            });
-
-            if (res.ok) {
-                const updatedBooking = await res.json();
-                setBookings(prev =>
-                    prev.map(b => b.id === id ? updatedBooking : b)
-                );
-            }
-        } catch (error) {
-            console.error("Error updating booking status", error);
-        }
-    };
-
-    const deleteBooking = async (id) => {
-        try {
-             const token = localStorage.getItem("token");
-             const headers = { "Content-Type": "application/json" };
-             if (token) headers["Authorization"] = `Bearer ${token}`;
-
-             const res = await fetch(`${API_URL}/bookings/${id}`, {
-                 method: "DELETE",
-                 headers
-             });
-
-             if (res.ok) {
-                 setBookings(prev => prev.filter(b => b.id !== id));
-             }
-        } catch (error) {
-            console.error("Error deleting booking", error);
-        }
-    };
-
-    return (
-        <BookingContext.Provider value={{ bookings, loading, addBooking, updateBookingStatus, deleteBooking, fetchBookings }}>
-            {children}
-        </BookingContext.Provider>
-    );
+  return (
+    <BookingContext.Provider
+      value={{ bookings, loading, stats, addBooking, updateBookingStatus, deleteBooking, fetchBookings, fetchStats }}
+    >
+      {children}
+    </BookingContext.Provider>
+  );
 };

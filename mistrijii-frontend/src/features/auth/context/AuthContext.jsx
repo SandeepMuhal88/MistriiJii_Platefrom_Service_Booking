@@ -8,37 +8,41 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Parse JWT token from localstorage to simulate logged-in user state
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("mj_token");
     if (token) {
-      // Decode JWT slightly to get user info if we wanted, or just assume logged in
       try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        setUser({ email: payload.sub });
-      } catch (e) {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        // Check expiry
+        if (payload.exp && Date.now() / 1000 > payload.exp) {
+          localStorage.removeItem("mj_token");
+          setUser(null);
+        } else {
+          setUser({ email: payload.sub, token });
+        }
+      } catch {
+        localStorage.removeItem("mj_token");
         setUser(null);
-        localStorage.removeItem("token");
       }
-    } else {
-      setUser(null);
     }
     setLoading(false);
   }, []);
 
   const login = (token) => {
-    localStorage.setItem("token", token);
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    setUser({ email: payload.sub });
-  }
+    localStorage.setItem("mj_token", token);
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    setUser({ email: payload.sub, token });
+  };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("mj_token");
     setUser(null);
-  }
+  };
+
+  const getToken = () => localStorage.getItem("mj_token");
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, getToken, isAdmin: !!user }}>
       {!loading && children}
     </AuthContext.Provider>
   );
